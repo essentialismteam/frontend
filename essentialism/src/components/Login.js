@@ -3,14 +3,18 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-function pleaseLogin(login) {
-    axios
-        .post('http://some.url', )
-}
-
 export default () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+
+    function pleaseLogin(login) {
+        axios
+            .post('http://some.url', {username: username, password: password})
+            .then(res => {
+                localStorage.setItem('authBody', res.data);
+                localStorage.setItem('authenticated', true)
+            })
+    }
 
     return (
         <div>
@@ -20,16 +24,16 @@ export default () => {
                 name='username'
                 placeholder='Username'
                 value={username}
-                onChange={(() => setUsername(event.target.value))}
+                onChange={(() => setUsername(this.value))}
                 />
                 <input
                 type='text'
                 name='password'
                 placeholder='Password'
                 value={password}
-                onChange={(() => setPassword(event.target.value))}
+                onChange={(() => setPassword(this.value))}
                 />
-                <button></button>
+                <button>login</button>
             </form>
         </div>
     )
