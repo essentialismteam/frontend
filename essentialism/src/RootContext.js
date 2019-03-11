@@ -1,5 +1,3 @@
-// RootContext.js
-
 import React, { useEffect, useState } from 'react';
 
 export const RootContext = React.createContext();
