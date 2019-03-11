@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 
-export const RootContext = React.createContext();
+export const RootContext = createContext();
 
 export default ({ children }) => {
     const prevAuth = window.localStorage.getItem('auth') || false;
