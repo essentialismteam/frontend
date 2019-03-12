@@ -16,7 +16,7 @@ export default () => {
         axios
             .post('https://essentialism-backend.herokuapp.com/auth/register', credentials)
             .then(res => {
-                localStorage.setItem('authBody', res.data);
+                localStorage.setItem('authBody', res.data.token);
                 localStorage.setItem('authenticated', true)
             })
     }

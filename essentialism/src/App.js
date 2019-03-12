@@ -3,18 +3,19 @@
 import React from "react";
 import { Route } from "react-router-dom";
 
-import PrivateRoute from "./components/PrivateRoute";
-import Dashboard from "./components/Dashboard";
-import Login from "./components/Login";
-import Signup from "./components/Signup";
+import { Dashboard, Login, PrivateRoute, Signup } from './components';
 
 const App = () => {
   return (
     <div>
       <h1>App</h1>
-      <Route exact path="/login" component={Login} />
+      <Route
+      exact
+      path="/login"
+      render={props => <Login {...props} /> }
+      />
       <Route exact path='/register' component={Signup} />
-      <PrivateRoute exact path="/home" component={Dashboard} />
+      <PrivateRoute exact path="/" component={Dashboard} />
     </div>
   );
 };

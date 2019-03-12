@@ -1,13 +1,15 @@
 // Login.js
 
 import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 export default () => {
-    const [credentials, setCredentials] = useState({
+    const initialState = {
         username: '',
         password: ''
-    });
+    }
+    const [credentials, setCredentials] = useState(initialState);
 
     function pleaseLogin(e) {
         e.preventDefault()
@@ -18,6 +20,8 @@ export default () => {
                 localStorage.setItem('authenticated', true);
             })
             .catch(err => console.log(err));
+        setCredentials(initialState);
+        
     }
 
     const updateFormData = event =>
