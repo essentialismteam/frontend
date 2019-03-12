@@ -43,7 +43,7 @@ export default () => {
                 onChange={(() => setUsername(this.value))}
             />
             <input
-                type='text'
+                type='password'
                 name='password'
                 placeholder='Password'
                 value={password}

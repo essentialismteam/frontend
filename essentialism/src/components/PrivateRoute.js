@@ -7,14 +7,12 @@ export default ({
     component: Component,
     ...routeProps
 }) => {
-    console.log(routeProps);
     const { authenticated } = useContext(RootContext);
     return (
         <Route
             {...routeProps}
-            render={ () => (authenticated ?
-                <Component {...routeProps} /> :
-                <Redirect to='/login' />)
+            render={ () => (authenticated ? <Component {...routeProps} /> :
+            <Redirect to='/login' />)
             }
         />
     );

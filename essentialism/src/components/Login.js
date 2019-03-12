@@ -27,7 +27,7 @@ export default () => {
                 onChange={(e) => setUsername(e.target.value)}
                 />
                 <input
-                type='text'
+                type='password'
                 name='password'
                 placeholder='Password'
                 value={password}
