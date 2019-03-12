@@ -22,19 +22,14 @@ export default ({ children }) => {
         authBody,
         setAuthbody
     };
-
-    const RootContextProvider = props => {
-        const [state, dispatch] = useReducer(reducer, initialState);
-        let value = { state, dispatch };
-
+        
         return (
             <RootContext.Provider value={defaultContext}>
                 (children)
             </RootContext.Provider>
         );
-    };    
-};
+    };
 
 const RootContextConsumer = RootContext.Consumer;
 
-export { RootContext, RootContextConsumer, RootContextProvider }
+export { RootContext, RootContextConsumer };
