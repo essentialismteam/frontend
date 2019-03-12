@@ -35,28 +35,28 @@ export default () => {
                 name='firstName'
                 placeholder='First Name'
                 value={credentials.firstName}
-                onChange={((e) => updateFormData(e))}
+                onChange={(e) => updateFormData(e)}
             />
             <input
                 type='text'
                 name='lastName'
                 placeholder='Last Name'
                 value={credentials.lastName}
-                onChange={((e) => updateFormData(e))}
+                onChange={(e) => updateFormData(e)}
             />
             <input
                 type='text'
                 name='username'
                 placeholder='Username'
                 value={credentials.username}
-                onChange={((e) => updateFormData(e))}
+                onChange={(e) => updateFormData(e)}
             />
             <input
                 type='password'
                 name='password'
                 placeholder='Password'
                 value={credentials.password}
-                onChange={((e) => updateFormData(e))}
+                onChange={(e) => updateFormData(e)}
             />
                 <button>login</button>
             </form>
