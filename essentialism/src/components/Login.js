@@ -24,14 +24,14 @@ export default () => {
                 name='username'
                 placeholder='Username'
                 value={username}
-                onChange={(() => setUsername(this.value))}
+                onChange={(e) => setUsername(e.target.value)}
                 />
                 <input
                 type='text'
                 name='password'
                 placeholder='Password'
                 value={password}
-                onChange={(() => setPassword(this.value))}
+                onChange={(e) => setPassword(e.target.value)}
                 />
                 <button>login</button>
             </form>
