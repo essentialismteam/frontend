@@ -3,24 +3,24 @@ import React, { createContext, useEffect, useState } from "react";
 const RootContext = createContext();
 
 const RootProvider = ({ children }) => {
-  const prevAuth = window.localStorage.getItem("auth") || false;
-  const prevAuthBody = window.localStorage.getItem("authBody") || null;
+  const prevAuth = window.localStorage.getItem('authenticated') || false;
+  const prevToken = window.localStorage.getItem('token') || null;
   const [authenticated, setAuthenticated] = useState(prevAuth);
-  const [authBody, setAuthbody] = useState(prevAuthBody);
+  const [token, setToken] = useState(prevToken);
 
   useEffect(
     () => {
-      window.localStorage.setItem("authenticatedd", authenticated);
-      window.localStorage.setItem("authBody", authBody);
-    },
-    [authenticated, authBody]
+      window.localStorage.setItem('authenticated', authenticated);
+      window.localStorage.setItem('token', token);
+    }, 
+    [authenticated, token]
   );
 
   const defaultContext = {
     authenticated,
     setAuthenticated,
-    authBody,
-    setAuthbody
+    token,
+    setToken
   };
 
   return (

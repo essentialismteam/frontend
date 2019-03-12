@@ -9,10 +9,9 @@ const PrivateRoute = ({
 }) => {
     const { authenticated } = useContext(RootContext);
     return (
-        <Route
-            {...rest}
-            render={ () => (authenticated ?
-                <Component {...rest} /> :
+        <Route            
+            render={ props => (authenticated ? 
+                <Component {...props} /> :
                 <Redirect to='/login' />)
             }
         />
