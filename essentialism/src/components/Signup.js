@@ -32,16 +32,16 @@ export default () => {
             <form onSubmit={pleaseSignup}>
             <input
                 type='text'
-                name='firstName'
+                name='firstname'
                 placeholder='First Name'
-                value={credentials.firstName}
+                value={credentials.firstname}
                 onChange={(e) => updateFormData(e)}
             />
             <input
                 type='text'
-                name='lastName'
+                name='lastname'
                 placeholder='Last Name'
-                value={credentials.lastName}
+                value={credentials.lastname}
                 onChange={(e) => updateFormData(e)}
             />
             <input
