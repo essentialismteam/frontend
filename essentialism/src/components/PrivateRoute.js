@@ -2,18 +2,21 @@ import React, { useContext } from 'react';
 import { Redirect, Route } from 'react-router-dom'
 import { RootContext } from '../RootContext';
 
-export default ({
+const PrivateRoute = ({
     render,
     component: Component,
-    ...routeProps
+    ...rest
 }) => {
     const { authenticated } = useContext(RootContext);
     return (
         <Route
-            {...routeProps}
-            render={ () => (authenticated ? <Component {...routeProps} /> :
-            <Redirect to='/login' />)
+            {...rest}
+            render={ () => (authenticated ?
+                <Component {...rest} /> :
+                <Redirect to='/login' />)
             }
         />
     );
 };
+
+export default PrivateRoute;

@@ -9,7 +9,7 @@ export default () => {
 
     function pleaseLogin(login) {
         axios
-            .post('http://some.url', {username: username, password: password})
+            .post('https://essentialism-backend.herokuapp.com/auth/login', {username: username, password: password})
             .then(res => {
                 localStorage.setItem('authBody', res.data);
                 localStorage.setItem('authenticated', true)
