@@ -1,9 +1,11 @@
+//RootContext.js
+
 import React, { createContext, useEffect, useState } from "react";
 
 const RootContext = createContext();
 
 const RootProvider = ({ children }) => {
-  const prevAuth = window.localStorage.getItem('authenticated') || false;
+  const prevAuth = JSON.parse(window.localStorage.getItem('authenticated')) || false;
   const prevToken = window.localStorage.getItem('token') || null;
   const [authenticated, setAuthenticated] = useState(prevAuth);
   const [token, setToken] = useState(prevToken);
