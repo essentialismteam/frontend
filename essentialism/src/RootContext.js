@@ -1,6 +1,6 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useEffect, useReducer, useState } from 'react';
 
-export const RootContext = createContext();
+const RootContext = createContext();
 
 export default ({ children }) => {
     const prevAuth = window.localStorage.getItem('auth') || false;
@@ -23,9 +23,18 @@ export default ({ children }) => {
         setAuthbody
     };
 
-    return (
-        <RootContext.Provider value={defaultContext}>
-            (children)
-        </RootContext.Provider>
-    );
+    const RootContextProvider = props => {
+        const [state, dispatch] = useReducer(reducer, initialState);
+        let value = { state, dispatch };
+
+        return (
+            <RootContext.Provider value={defaultContext}>
+                (children)
+            </RootContext.Provider>
+        );
+    };    
 };
+
+const RootContextConsumer = RootContext.Consumer;
+
+export { RootContext, RootContextConsumer, RootContextProvider }

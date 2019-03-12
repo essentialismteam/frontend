@@ -2,11 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-// import { RootContext } from './RootContext';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { RootContextProvider } from './RootContext';
 
 ReactDOM.render(
-    // <RootContext>
-        <App />,
-    // </RootContext>,
+    <RootContextProvider>
+        <Router>
+            <App />
+        </Router>
+    </RootContextProvider>,
     document.getElementById('root')
 );
