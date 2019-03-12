@@ -3,16 +3,18 @@
 import React from "react";
 import { Route } from "react-router-dom";
 
+import PrivateRoute from "./components/PrivateRoute";
 import Compare from "./components/Compare";
 import Login from "./components/Login";
-import PrivateRoute from "./components/PrivateRoute";
+import Signup from "./components/Signup";
 
 const App = () => {
   return (
     <div>
       <h1>App</h1>
-      <Route path="/" component={Login} />
-      <PrivateRoute exact path="/protected" component={Compare} />
+      <Route exact path="/login" component={Login} />
+      <Route path='/register' component={Signup} />
+      <PrivateRoute exact path="/home" component={Compare} />
     </div>
   );
 };

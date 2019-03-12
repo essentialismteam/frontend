@@ -4,19 +4,28 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 export default () => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
+    const [credentials, setCredentials] = useState({
+        firstname: '',
+        lastname: '',
+        username: '',
+        password: ''
+    });
 
-    function pleaseSignup(login) {
+    function pleaseSignup(e) {
+        e.preventDefault();
         axios
-            .post('https://essentialism-backend.herokuapp.com/auth/register', {username: username, password: password, firstname: firstName, lastname: lastName})
+            .post('https://essentialism-backend.herokuapp.com/auth/register', credentials)
             .then(res => {
                 localStorage.setItem('authBody', res.data);
                 localStorage.setItem('authenticated', true)
             })
     }
+
+    const updateFormData = event =>
+        setCredentials({
+            ...credentials,
+            [event.target.name]: event.target.value
+        });
 
     return (
         <div>
@@ -25,29 +34,29 @@ export default () => {
                 type='text'
                 name='firstName'
                 placeholder='First Name'
-                value={firstName}
-                onChange={(() => setFirstName(this.value))}
+                value={credentials.firstName}
+                onChange={((e) => updateFormData(e))}
             />
             <input
                 type='text'
                 name='lastName'
                 placeholder='Last Name'
-                value={lastName}
-                onChange={(() => setLastName(this.value))}
+                value={credentials.lastName}
+                onChange={((e) => updateFormData(e))}
             />
             <input
                 type='text'
                 name='username'
                 placeholder='Username'
-                value={username}
-                onChange={(() => setUsername(this.value))}
+                value={credentials.username}
+                onChange={((e) => updateFormData(e))}
             />
             <input
                 type='password'
                 name='password'
                 placeholder='Password'
-                value={password}
-                onChange={(() => setPassword(this.value))}
+                value={credentials.password}
+                onChange={((e) => updateFormData(e))}
             />
                 <button>login</button>
             </form>
