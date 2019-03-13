@@ -2,7 +2,9 @@ import { LOGIN_START, LOGIN_SUCCESS } from '../actions'
 
 const initialState = {
     loggingIn: false,
-    token: localStorage.getItem('token')
+    token: localStorage.getItem('token'),
+    errorStatusCode: null;
+    error: ''
 }
 
 const reducer = (state = initialState, action) => {

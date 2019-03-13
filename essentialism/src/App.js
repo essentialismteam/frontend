@@ -7,24 +7,22 @@ import { Dashboard, Login, PrivateRoute, Signup } from './components';
 
 const App = () => {
   return (
-    <div classname='App'>
-      <nav>
-        <ul>
-          <li>
-            <Link to='/login'>Log In</Link>
-            <Link to='/'>Home</Link>
-          </li>
-        </ul>
-      </nav>
-      <h1>App</h1>
-      <Route
-      exact
-      path="/login"
-      render={props => <Login {...props} /> }
-      />
-      <Route exact path='/register' component={Signup} />
-      <PrivateRoute exact path="/" component={Dashboard} />
-    </div>
+    <Router>
+      <div classname='App'>
+        <nav>
+          <ul>
+            <li>
+              <Link to='/login'>Log In</Link>
+              <Link to='/'>Home</Link>
+            </li>
+          </ul>
+        </nav>
+        <h1>App</h1>
+        <Route path="/login" component={Login} />
+        <Route exact path='/register' component={Signup} />
+        <PrivateRoute exact path="/" component={Dashboard} />
+      </div>
+    </Router>
   );
 };
 
