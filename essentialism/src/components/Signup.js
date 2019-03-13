@@ -4,12 +4,15 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 export default () => {
-    const [credentials, setCredentials] = useState({
+    
+    const initialState = {
         firstname: '',
         lastname: '',
         username: '',
         password: ''
-    });
+    }
+    
+    const [credentials, setCredentials] = useState(initialState);
 
     function pleaseSignup(e) {
         e.preventDefault();
@@ -18,8 +21,9 @@ export default () => {
             .then(res => {
                 localStorage.setItem('authBody', res.data.token);
                 localStorage.setItem('authenticated', true)
-            })
-    }
+            });
+        setCredentials(initialState);
+        };
 
     const updateFormData = event =>
         setCredentials({
@@ -35,28 +39,28 @@ export default () => {
                 name='firstname'
                 placeholder='First Name'
                 value={credentials.firstname}
-                onChange={(e) => updateFormData(e)}
+                onChange={updateFormData}
             />
             <input
                 type='text'
                 name='lastname'
                 placeholder='Last Name'
                 value={credentials.lastname}
-                onChange={(e) => updateFormData(e)}
+                onChange={updateFormData}
             />
             <input
                 type='text'
                 name='username'
                 placeholder='Username'
                 value={credentials.username}
-                onChange={(e) => updateFormData(e)}
+                onChange={updateFormData}
             />
             <input
                 type='password'
                 name='password'
                 placeholder='Password'
                 value={credentials.password}
-                onChange={(e) => updateFormData(e)}
+                onChange={updateFormData}
             />
                 <button>login</button>
             </form>

@@ -1,7 +1,7 @@
 // Login.js
 
 import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 export default () => {
@@ -38,14 +38,14 @@ export default () => {
                 name='username'
                 placeholder='Username'
                 value={credentials.username}
-                onChange={(e) => updateFormData(e)}
+                onChange={updateFormData}
                 />
                 <input
                 type='password'
                 name='password'
                 placeholder='Password'
                 value={credentials.password}
-                onChange={(e) => updateFormData(e)}
+                onChange={updateFormData}
                 />
                 <button>login</button>
             </form>
