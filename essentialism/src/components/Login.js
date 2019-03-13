@@ -1,10 +1,10 @@
 // Login.js
 
 import React, { useState } from 'react';
-// import { Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router-dom'
 import axios from 'axios';
 
-export default () => {
+const Login = (props) => {
     const initialState = {
         username: '',
         password: ''
@@ -12,6 +12,7 @@ export default () => {
     const [credentials, setCredentials] = useState(initialState);
 
     function pleaseLogin(e) {
+        let destination = '/';
         e.preventDefault()
         axios
             .post('https://essentialism-backend.herokuapp.com/auth/login', credentials)
@@ -21,7 +22,7 @@ export default () => {
             })
             .catch(err => console.log(err));
         setCredentials(initialState);
-        
+        props.history.push(destination);
     }
 
     const updateFormData = event =>
@@ -52,3 +53,5 @@ export default () => {
         </div>
     )
 }
+
+export default withRouter(Login)
