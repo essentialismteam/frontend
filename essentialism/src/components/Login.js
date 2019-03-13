@@ -18,6 +18,7 @@ const Login = (props) => {
             .post('https://essentialism-backend.herokuapp.com/auth/login', credentials)
             .then(res => { 
                 localStorage.setItem('token', res.data.token);
+                localStorage.setItem('userID', res.data.id);
                 localStorage.setItem('authenticated', true);
             })
             .catch(err => console.log(err));
