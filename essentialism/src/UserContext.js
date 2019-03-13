@@ -25,4 +25,4 @@ const UserProvider = props => {
     )
 }
 
-export { UserContext };
+export { UserContext, UserProvider };

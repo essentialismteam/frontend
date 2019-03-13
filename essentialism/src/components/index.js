@@ -5,7 +5,6 @@ import Project from './Project';
 import Projects from './Projects';
 import PrivateRoute from './PrivateRoute'
 import Signup from './Signup';
-import UserContext from './UserContext'
 import Value from './Value';
 import Values from './Values';
 
@@ -17,6 +16,5 @@ export {
     Projects,
     PrivateRoute,
     Signup,
-    UserContext,
     Value,
     Values };
