@@ -24,12 +24,14 @@ class Login extends Component {
 
     login = e => {
         e.preventDefault();
+        const newLocal = "/";
         this.props
             .login(this.state.credentials)
-            .then(() => this.props.history.push('/'));
+            .then(() => this.props.history.push(newLocal));
     }
 
     render() {
+        console.log(this.props);
         return (
             <div>
                 <form onSubmit={this.login}>

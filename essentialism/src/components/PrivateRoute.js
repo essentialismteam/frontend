@@ -1,6 +1,6 @@
 // PrivateRoute.js
 
-import React, { useContext } from 'react';
+import React from 'react';
 import { Redirect, Route, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 
