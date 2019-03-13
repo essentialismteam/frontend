@@ -1,16 +1,37 @@
-import React, { useContext } from 'react';
-import { Redirect, Route } from 'react-router-dom'
-import { RootContext } from '../RootContext';
+// PrivateRoute.js
 
-export default ({ render, ...routeProps }) => {
-    const { authenticated } = useContext(RootContext);
+import React from 'react';
+import { Redirect, Route, withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
+
+const PrivateRoute = ({
+    component: Component,
+    token,
+    errorStatusCode,
+    ...rest
+}) => {
     return (
         <Route
-            {...routeProps}
-            render={ () => (authenticated ?
-                render() :
-                <Redirect to='/login' />)
+            {...rest}
+            render={ props =>
+                token && errorStatusCode !== 403 ? (
+                <Component {...props} /> 
+                ) : (
+                <Redirect to='/login' />
+                )
             }
         />
-    )
-}
+    );
+};
+
+const mapStateToProps = ({ token, errorStatusCode }) => ({
+    errorStatusCode,
+    token
+});
+
+export default withRouter(
+    connect(
+        mapStateToProps,
+        {}
+    )(PrivateRoute)
+);
