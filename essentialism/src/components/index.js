@@ -1,6 +1,6 @@
 import ChooseValues from './ChooseValues';
 import Dashboard from './Dashboard';
-import Login from './Login';
+import Login from './LoginPage';
 import Project from './Project';
 import Projects from './Projects';
 import PrivateRoute from './PrivateRoute'

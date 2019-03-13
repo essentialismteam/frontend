@@ -1,32 +1,19 @@
 // Login.js
 
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import axios from 'axios';
 
 import { Consumer, login } from '../Context';
 
-const LoginPage = (props) => {
-    const initialState = {
+class LoginPage extends Component {
+    state = {
         username: '',
         password: ''
     }
-    const [credentials, setCredentials] = useState(initialState);
-
-    // function pleaseLogin(e) {
-    //     let destination = '/';
-    //     e.preventDefault()
-    //     axios
-    //         .post('https://essentialism-backend.herokuapp.com/auth/login', credentials)
-    //         .then(res => { 
-    //             localStorage.setItem('token', res.data.token);
-    //             localStorage.setItem('userID', res.data.id);
-    //             localStorage.setItem('authenticated', true);
-    //         })
-    //         .catch(err => console.log(err));
-    //     setCredentials(initialState);
-    //     props.history.push(destination);
-    // }
+    
+    handleInput = event =>
+        this.setState[{[event.target.name]: event.target.value }]
+        
 
     handleSubmit = (e, dispatch) => {
         e.preventDefault();
@@ -35,18 +22,14 @@ const LoginPage = (props) => {
             password: {password}
         };
         login(dispatch, userData).then(() => {
-            
-        })
-    }
-
-    const handleInput = event =>
-        setCredentials({
-            ...credentials,
-            [event.target.name]: event.target.value
+            this.props.history.push('/');
         });
-
+    };
+    
+    render() {
     return (
         <Consumer>
+            {({ dispatch})}
             <div>
                 <form onSubmit={handleSubmit}>
                 <input
@@ -70,6 +53,6 @@ const LoginPage = (props) => {
             </div>
         </Consumer>
     )
+    }
 }
-
-export default withRouter(LoginPage);
+export default LoginPage;

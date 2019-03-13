@@ -67,7 +67,7 @@ const login = (dispatch, user) => {
         type: 'LOGIN_FAILURE',
         payload: err.response.data.message
       })
-    );
+    )
 }
 
 const Provider = ({ children }) => {
