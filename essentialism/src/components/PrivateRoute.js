@@ -1,8 +1,8 @@
 // PrivateRoute.js
 
 import React, { useContext } from 'react';
-import { Redirect, Route } from 'react-router-dom'
-import { Context } from '../Context';
+import { Redirect, Route, withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 const PrivateRoute = ({
     component: Component,
@@ -10,7 +10,6 @@ const PrivateRoute = ({
     errorStatusCode,
     ...rest
 }) => {
-    const { authenticated } = useContext(Context);
     return (
         <Route
             {...rest}

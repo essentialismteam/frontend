@@ -3,7 +3,7 @@ import { LOGIN_START, LOGIN_SUCCESS } from '../actions'
 const initialState = {
     loggingIn: false,
     token: localStorage.getItem('token'),
-    errorStatusCode: null;
+    errorStatusCode: null,
     error: ''
 }
 

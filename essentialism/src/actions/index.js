@@ -8,6 +8,7 @@ export const login = creds => dispatch => {
     return axios
         .post('https://essentialism-backend.herokuapp.com/auth/login', creds)
         .then(res => {
+            console.log(res.data);
             localStorage.setItem('token', res.data.token);
             dispatch({ type: LOGIN_SUCCESS, payload: res.data.payload});
         });
