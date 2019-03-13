@@ -24,18 +24,17 @@ class Login extends Component {
 
     login = e => {
         e.preventDefault();
-        const newLocal = "/";
         this.props
             .login(this.state.credentials)
-            .then(() => this.props.history.push(newLocal));
+            this.props.history.push('/');
     }
 
     render() {
         console.log(this.props);
-        return (
+        return (            
             <div>
                 <form onSubmit={this.login}>
-                <label for='username'>Username</label>
+                <label htmlFor='username'>Username</label>
                     <input
                         type='text'
                         name='username'
@@ -43,7 +42,7 @@ class Login extends Component {
                         value={this.state.credentials.username}
                         onChange={this.handleChange}
                     />
-                    <label for='password'>Password</label>
+                    <label htmlFor='password'>Password</label>
                     <input
                         type='password'
                         name='password'
@@ -53,7 +52,7 @@ class Login extends Component {
                     />
                     {this.props.error && <p>{this.props.error}</p>}
 
-                    <button>Login</button>
+                    <button type='submit'>Login</button>
                 </form>
             </div>
         );
