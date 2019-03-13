@@ -4,7 +4,12 @@ import {
     FETCH_VALUES_FAILURE,
     FETCH_VALUES_START,
     FETCH_VALUES_SUCCESS,
-    USER_UNAUTHORIZED
+    SIGNUP_START,
+    SIGNUP_SUCCESS,
+    USER_UNAUTHORIZED,
+    FETCH_USER_VALUES_START,
+    FETCH_USER_VALUES_SUCCESS,
+    FETCH_USER_VALUES_FAILURE
 } from '../actions'
 
 const initialState = {
@@ -13,7 +18,11 @@ const initialState = {
     id: null,
     errorStatusCode: null,
     error: '',
-    values: []
+    fetchingValues: false,
+    values: [],
+    fetchingUserValues: false,
+    userValues: []
+
 }
 
 const reducer = (state = initialState, action) => {
@@ -37,6 +46,11 @@ const reducer = (state = initialState, action) => {
                 token: action.payload.token,
                 id: action.payload.id
             }
+        case SIGNUP_START:
+            return {
+                ...state,
+                
+            }
         case FETCH_VALUES_START:
             return {
                 ...state,
@@ -48,6 +62,31 @@ const reducer = (state = initialState, action) => {
                 errorStatusCode: null,
                 fetchingValues: false,
                 values: action.payload
+            }
+        case FETCH_VALUES_FAILURE:
+            return {
+                ...state,
+                error: action.payload.data.error,
+                errorStatusCode: action.payload.status,
+                fetchingValues: false
+            }
+        case FETCH_USER_VALUES_START:
+            return {
+                ...state,
+                fetchingUserValues: true
+            }
+        case FETCH_USER_VALUES_SUCCESS:
+            return {
+                ...state,
+                fetchingUserValues: false,
+                userValues: action.payload
+            }
+        case FETCH_USER_VALUES_FAILURE:
+            return {
+                ...state,
+                error: action.payload.data.error,
+                errorStatusCode: action.payload.status,
+                fetchingValues: false
             }
         default:
             return state;

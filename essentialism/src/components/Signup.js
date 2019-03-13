@@ -1,74 +1,89 @@
-// Signup.js
+// Login.js
 
-import React, { useState } from 'react';
-import { withRouter } from 'react-router-dom';
-import axios from 'axios';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
-const Signup = (props) => {
-    
-    const initialState = {
-        firstname: '',
-        lastname: '',
-        username: '',
-        password: ''
-    }
-    
-    const [credentials, setCredentials] = useState(initialState);
+import { signup } from '../actions'
 
-    function pleaseSignup(e) {
-        let destination = '/';
+class Signup extends Component {
+    state = {
+        credentials: {
+            firstname: '',
+            lastname: '',
+            username: '',
+            password: ''
+        }
+    };
+
+    handleChange = e => {
+        this.setState({
+            credentials: {
+                ...this.state.credentials,
+                [e.target.name]: e.target.value
+            }
+        });        
+    };
+
+    login = e => {
         e.preventDefault();
-        axios
-            .post('https://essentialism-backend.herokuapp.com/auth/register', credentials)
-            .then(res => {
-                localStorage.setItem('authBody', res.data.token);
-                localStorage.setItem('authenticated', true)
-            });
-        setCredentials(initialState);
-        props.history.push(destination);
-        };
+        this.props
+            .signup(this.state.credentials)
+            this.props.history.push('/');
+    }
 
-    const updateFormData = event =>
-        setCredentials({
-            ...credentials,
-            [event.target.name]: event.target.value
-        });
+    render() {
+        console.log(this.props);
+        return (            
+            <div>
+                <form onSubmit={this.login}>
+                <label htmlFor='firstname'>First Name</label>
+                    <input
+                        type='text'
+                        name='firstname'
+                        plaseholder='First name required'
+                        value={this.state.credentials.firstname}
+                        onChange={this.handleChange}
+                        required
+                    />
+                    <label htmlFor='lastname'>Last Name</label>
+                    <input
+                        type='text'
+                        name='lastname'
+                        plaseholder='Last name optional'
+                        value={this.state.credentials.lastname}
+                        onChange={this.handleChange}
+                    />
+                    <label htmlFor='username'>Username</label>
+                    <input
+                        type='text'
+                        name='username'
+                        plaseholder='Username'
+                        value={this.state.credentials.username}
+                        onChange={this.handleChange}
+                    />
+                    <label htmlFor='password'>Password</label>
+                    <input
+                        type='password'
+                        name='password'
+                        plaseholder='Password'
+                        value={this.state.credentials.password}
+                        onChange={this.handleChange}
+                    />
+                    {this.props.error && <p>{this.props.error}</p>}
 
-    return (
-        <div>
-            <form onSubmit={pleaseSignup}>
-            <input
-                type='text'
-                name='firstname'
-                placeholder='First Name'
-                value={credentials.firstname}
-                onChange={updateFormData}
-            />
-            <input
-                type='text'
-                name='lastname'
-                placeholder='Last Name'
-                value={credentials.lastname}
-                onChange={updateFormData}
-            />
-            <input
-                type='text'
-                name='username'
-                placeholder='Username'
-                value={credentials.username}
-                onChange={updateFormData}
-            />
-            <input
-                type='password'
-                name='password'
-                placeholder='Password'
-                value={credentials.password}
-                onChange={updateFormData}
-            />
-                <button>login</button>
-            </form>
-        </div>
-    )
+                    <button type='submit'>Login</button>
+                </form>
+            </div>
+        );
+    }
 }
 
-export default withRouter(Signup);
+const mapStateToProps = ({ error, loggingIn }) => ({
+    error,
+    loggingIn
+});
+
+export default connect(
+    mapStateToProps,
+    { signup }
+)(Signup);

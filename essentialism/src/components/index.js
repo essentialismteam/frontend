@@ -1,3 +1,4 @@
+import Auth from './Auth';
 import ChooseValues from './ChooseValues';
 import Dashboard from './Dashboard';
 import Login from './Login';
@@ -9,6 +10,7 @@ import Value from './Value';
 import Values from './Values';
 
 export {
+    Auth,
     ChooseValues,
     Dashboard,
     Login,
