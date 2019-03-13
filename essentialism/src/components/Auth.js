@@ -15,7 +15,6 @@ class Auth extends Component {
     };
 
     render() {
-        console.log(this.state.isNewUser);
         return (
             <div>
                 <div>
@@ -29,7 +28,9 @@ class Auth extends Component {
                     type='button'
                     onClick={this.handleFormSwitch}
                     >
-                        New user? Click here!
+                        {this.state.isNewUser
+                        ? "Existing user? Log in here!"
+                        : "New user? Register here!"}
                     </button>
                 </div>
             </div>

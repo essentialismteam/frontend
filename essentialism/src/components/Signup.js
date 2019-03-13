@@ -29,10 +29,10 @@ class Signup extends Component {
         this.props
             .signup(this.state.credentials)
             this.props.history.push('/');
+            console.log(this.state.credentials);
     }
 
-    render() {
-        console.log(this.props);
+    render() {        
         return (            
             <div>
                 <form onSubmit={this.login}>

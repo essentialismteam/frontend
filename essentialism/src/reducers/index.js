@@ -9,11 +9,13 @@ import {
     USER_UNAUTHORIZED,
     FETCH_USER_VALUES_START,
     FETCH_USER_VALUES_SUCCESS,
-    FETCH_USER_VALUES_FAILURE
+    FETCH_USER_VALUES_FAILURE,
+    LOGIN_FAILURE
 } from '../actions'
 
 const initialState = {
     loggingIn: false,
+    signingUp: false,
     token: localStorage.getItem('token'),
     id: null,
     errorStatusCode: null,
@@ -46,10 +48,22 @@ const reducer = (state = initialState, action) => {
                 token: action.payload.token,
                 id: action.payload.id
             }
+        case LOGIN_FAILURE:
+            return {
+                ...state,
+                error: action.payload.data.error,
+                errorStatusCode: action.payload.status,
+                loggingIn: false
+            }
         case SIGNUP_START:
             return {
                 ...state,
-                
+                signingUp: true
+            }
+        case SIGNUP_SUCCESS:
+            return {
+                ...state,
+                signingUp: false
             }
         case FETCH_VALUES_START:
             return {
