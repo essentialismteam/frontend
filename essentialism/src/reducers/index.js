@@ -62,31 +62,31 @@ const reducer = (state = initialState, action) => {
                 loggingIn: false,
                 token: action.payload.token,
                 id: action.payload.id
-            }
+            };
         case LOGIN_FAILURE:
             return {
                 ...state,
                 error: action.payload.data.error,
                 errorStatusCode: action.payload.status,
                 loggingIn: false
-            }
+            };
         case SIGNUP_START:
             return {
                 ...state,
                 signingUp: true
-            }
+            };
         case SIGNUP_SUCCESS:
             return {
                 ...state,
                 signingUp: false
-            }
+            };
         case SIGNUP_FAILURE:
             return {
                 ...state,
                 error: action.payload.data.error,
                 errorStatusCode: action.payload.status,
                 signingIn: false
-            }
+            };
         case FETCH_VALUES_START:
             return {
                 ...state,
@@ -98,50 +98,50 @@ const reducer = (state = initialState, action) => {
                 errorStatusCode: null,
                 fetching: false,
                 values: action.payload
-            }
+            };
         case FETCH_VALUES_FAILURE:
             return {
                 ...state,
                 error: action.payload.data.error,
                 errorStatusCode: action.payload.status,
                 fetching: false
-            }
+            };
         case FETCH_USER_INFO_START:
             return {
                 ...state,
                 fetching: true
-            }
+            };
         case FETCH_USER_INFO_SUCCESS:
             return {
                 ...state,
                 fetching: false,
                 userInfo: action.payload
-            }
+            };
         case FETCH_USER_INFO_FAILURE:
             return {
                 ...state,
                 error: action.payload.data.error,
                 errorStatusCode: action.payload.status,
                 fetching: false
-            }
+            };
         case UPDATE_USER_VALUES_START:
             return {
                 ...state,
                 updating: true
-            }
+            };
         case UPDATE_USER_VALUES_SUCCESS:
             return {
                 ...state,
                 updating: false,
                 userValues: action.payload
-            }
+            };
         case UPDATE_USER_VALUES_FAILURE:
             return {
                 ...state,
                 error: action.payload.data.error,
                 errorStatusCode: action.payload.status,
                 updating: false
-            }
+            };
         case DELETE_USER_VALUES_START:
             return {
                 ...state,
@@ -153,13 +153,13 @@ const reducer = (state = initialState, action) => {
                 deleting: false,
                 error: '',
                 message: action.payload
-            }
+            };
         case DELETE_USER_VALUES_FAILURE:
             return {
                 ...state,
                 deleting: false,
                 error: ''
-            }
+            };
         case ADD_USER_JOURNAL_START:
             return {
                 ...state,
