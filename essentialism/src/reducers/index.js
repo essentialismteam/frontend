@@ -27,7 +27,10 @@ import {
     UPDATE_JOURNAL_SUCCESS,
     DELETE_JOURNAL_FAILURE,
     DELETE_JOURNAL_START,
-    DELETE_JOURNAL_SUCCESS
+    DELETE_JOURNAL_SUCCESS,
+    ADD_PROJECT_FAILURE,
+    ADD_PROJECT_START,
+    ADD_PROJECT_SUCCESS,
 } from '../actions'
 
 const initialState = {
@@ -36,11 +39,14 @@ const initialState = {
     token: localStorage.getItem('token'),
     errorStatusCode: null,
     error: '',
+    adding: false,
     fetching: false,
+    updating: false,
     deleting: false,
     values: [],
     userInfo: [],
-    userValues: []
+    userValue: {},
+    userJournal: {}
 }
 
 const reducer = (state = initialState, action) => {
@@ -121,12 +127,12 @@ const reducer = (state = initialState, action) => {
         case UPDATE_USER_VALUES_START:
             return {
                 ...state,
-                fetching: true
+                updating: true
             }
         case UPDATE_USER_VALUES_SUCCESS:
             return {
                 ...state,
-                fetching: false,
+                updating: false,
                 userValues: action.payload
             }
         case UPDATE_USER_VALUES_FAILURE:
@@ -134,7 +140,7 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 error: action.payload.data.error,
                 errorStatusCode: action.payload.status,
-                fetching: false
+                updating: false
             }
         case DELETE_USER_VALUES_START:
             return {
@@ -157,7 +163,7 @@ const reducer = (state = initialState, action) => {
         case ADD_USER_JOURNAL_START:
             return {
                 ...state,
-                fetching: true
+                upda: true
             }
         case ADD_USER_JOURNAL_SUCCESS:
             return {
@@ -175,12 +181,12 @@ const reducer = (state = initialState, action) => {
         case UPDATE_JOURNAL_START:
             return {
                 ...state,
-                fetching: true
+                updating: true
             }
         case UPDATE_JOURNAL_SUCCESS:
             return {
                 ...state,
-                fetching: false,
+                updating: false,
                 userValues: action.payload
             }
         case UPDATE_JOURNAL_FAILURE:
@@ -188,7 +194,7 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 error: action.payload.data.error,
                 errorStatusCode: action.payload.status,
-                fetching: false
+                updating: false
             }
         case DELETE_JOURNAL_START:
             return {
@@ -207,6 +213,24 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 deleting: false,
                 error: ''
+            }
+        case ADD_PROJECT_START:
+            return {
+                ...state,
+                fetching: true
+            }
+        case ADD_PROJECT_SUCCESS:
+            return {
+                ...state,
+                fetching: false,
+                userJournal: action.payload
+            }
+        case ADD_PROJECT_FAILURE:
+            return {
+                ...state,
+                error: action.payload.data.error,
+                errorStatusCode: action.payload.status,
+                fetching: false
             }
         default:
             return state;
