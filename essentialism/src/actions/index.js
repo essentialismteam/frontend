@@ -162,7 +162,7 @@ export const DELETE_JOURNAL_START = 'DELETE_JOURNAL_START';
 export const DELETE_JOURNAL_SUCCESS = 'DELETE_JOURNAL_SUCCESS';
 export const DELETE_JOURNAL_FAILURE = 'DELETE_JOURNAL_FAILURE';
 
-export const updateUserJournal = id => dispatch => {
+export const deleteUserJournal = id => dispatch => {
     dispatch({ type: UPDATE_JOURNAL_START });
     axios
         .delete(`https://essentialism-backend.herokuapp.com/users/${id}/values`, {
@@ -182,8 +182,8 @@ export const ADD_PROJECT_START = 'ADD_PROJECT_START';
 export const ADD_PROJECT_SUCCESS = 'ADD_PROJECT_SUCCESS';
 export const ADD_PROJECT_FAILURE = 'ADD_PROJECT_FAILURE';
 
-export const addUserProject = (id, project) => dispatch => {
-    dispatch({ type: ADD_USER_PROJECT_START });
+export const addProject = (id, project) => dispatch => {
+    dispatch({ type: ADD_PROJECT_START });
     axios
         .post(`https://essentialism-backend.herokuapp.com/users/${id}/values`, project, {
             HEADERS: { Authorization: localStorage.getItem('token') }
@@ -196,4 +196,24 @@ export const addUserProject = (id, project) => dispatch => {
             console.log(`user project err: `, err.response)
             dispatch({ type: ADD_PROJECT_FAILURE, payload: err.response });
         });
-};   
+};
+
+// export const UPDATE_PROJECT_START = 'UPDATE_JOURNAL_START';
+// export const UPDATE_PROJ_SUCCESS = 'UPDATE_JOURNAL_SUCCESS';
+// export const UPDATE_JOURNAL_FAILURE = 'UPDATE_JOURNAL_FAILURE';
+
+// export const updateUser = (id, journal) => dispatch => {
+//     dispatch({ type: UPDATE_JOURNAL_START });
+//     axios
+//         .put(`https://essentialism-backend.herokuapp.com/users/${id}/values`, journal, {
+//             HEADERS: { Authorization: localStorage.getItem('token') }
+//         })
+//         .then(res => {
+//             console.log(`user journal res: `, res.data)
+//             dispatch({ type: UPDATE_JOURNAL_SUCCESS, payload: res.data });
+//         })
+//         .catch(err => {
+//             console.log(`user journal err: `, err.response)
+//             dispatch({ type: UPDATE_JOURNAL_FAILURE, payload: err.response });
+//         });
+// };
