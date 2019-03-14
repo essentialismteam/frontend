@@ -34,9 +34,8 @@ class Signup extends Component {
             password: this.state.credentials.password
         }
 
-        this.props
-            .signup(signupData)
-        this.props.history.push('/');
+        this.props.signup(signupData)
+            .then(() => this.props.history.push('/'));
         console.log(this.state.credentials);
     }
 

@@ -13,19 +13,22 @@ import {
     FETCH_USER_INFO_FAILURE,
     FETCH_USER_INFO_START,
     FETCH_USER_INFO_SUCCESS,
-    FETCH_USER_VALUES_START,
-    FETCH_USER_VALUES_SUCCESS,
-    FETCH_USER_VALUES_FAILURE,
+    ADD_USER_VALUES_START,
+    ADD_USER_VALUES_SUCCESS,
+    ADD_USER_VALUES_FAILURE,
+    DELETE_USER_VALUES_FAILURE,
+    DELETE_USER_VALUES_START,
+    DELETE_USER_VALUES_SUCCESS
 } from '../actions'
 
 const initialState = {
     loggingIn: false,
     signingUp: false,
     token: localStorage.getItem('token'),
-    id: null,
     errorStatusCode: null,
     error: '',
     fetching: false,
+    deleting: false,
     values: [],
     userInfo: [],
     userValues: []
@@ -88,24 +91,6 @@ const reducer = (state = initialState, action) => {
                 errorStatusCode: action.payload.status,
                 fetching: false
             }
-        case FETCH_USER_VALUES_START:
-            return {
-                ...state,
-                fetching: true
-            }
-        case FETCH_USER_VALUES_SUCCESS:
-            return {
-                ...state,
-                fetching: false,
-                userValues: action.payload
-            }
-        case FETCH_USER_VALUES_FAILURE:
-            return {
-                ...state,
-                error: action.payload.data.error,
-                errorStatusCode: action.payload.status,
-                fetching: false
-            }
         case FETCH_USER_INFO_START:
             return {
                 ...state,
@@ -123,6 +108,42 @@ const reducer = (state = initialState, action) => {
                 error: action.payload.data.error,
                 errorStatusCode: action.payload.status,
                 fetching: false
+            }
+        case ADD_USER_VALUES_START:
+            return {
+                ...state,
+                fetching: true
+            }
+        case ADD_USER_VALUES_SUCCESS:
+            return {
+                ...state,
+                fetching: false,
+                userValues: action.payload
+            }
+        case ADD_USER_VALUES_FAILURE:
+            return {
+                ...state,
+                error: action.payload.data.error,
+                errorStatusCode: action.payload.status,
+                fetching: false
+            }
+        case DELETE_USER_VALUES_START:
+            return {
+                ...state,
+                deleting: true
+            };
+        case DELETE_USER_VALUES_SUCCESS:
+            return {
+                ...state,
+                deleting: false,
+                error: '',
+                message: action.payload
+            }
+        case DELETE_USER_VALUES_FAILURE:
+            return {
+                ...state,
+                deleting: false,
+                error: ''
             }
         default:
             return state;

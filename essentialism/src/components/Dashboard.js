@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Projects, Values } from '../components'
 
+import { getUserInfo } from '../actions';
+
 class Dashboard extends Component {
-    constructor(props) {
-        super(props)
+    state = {
+        id: localStorage.getItem('userID')
     }
 
     componentDidMount() {
-        this.props.getUserInfo(this.props.id);
+        this.props.getUserInfo(this.state.id);
     }
 
     render() {
@@ -24,12 +26,9 @@ class Dashboard extends Component {
     };
 }
 
-const mapStateToProps = ({ id, getUserInfo }) => ({
-    id,
-    getUserInfo
-})
+const mapStateToProps = ({ getUserInfo }) => ({ getUserInfo });
 
 export default connect(
     mapStateToProps,
-    {}
+    { getUserInfo }
 )(Dashboard);
