@@ -19,4 +19,5 @@ export {
     PrivateRoute,
     Signup,
     Value,
-    Values };
+    Values
+};
