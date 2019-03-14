@@ -59,15 +59,34 @@ export const getValues = () => dispatch => {
         });
 };
 
+export const FETCH_USER_INFO_START = 'FETCH_USER_INFO_START';
+export const FETCH_USER_INFO_SUCCESS = 'FETCH_USER_INFO_SUCCESS';
+export const FETCH_USER_INFO_FAILURE = 'FETCH_USER_INFO_FAILURE';
+
+export const getUserInfo = id => dispatch => {
+    dispatch({ type: FETCH_USER_INFO_START });
+    axios
+        .get(`https://essentialism-backend.herokuapp.com/users/${id}`, {
+            HEADERS: { Authorization: localStorage.getItem('token') }
+        })
+        .then(res => {
+            console.log(`get user info: `, res.data);
+            dispatch({ type: FETCH_USER_INFO_SUCCESS, payload: res.data });
+        })
+        .catch(err => {
+            console.log(`get user info: `, err.response);
+            dispatch({ type: FETCH_USER_INFO_FAILURE, payload: err.response })
+        });
+};
+
 export const FETCH_USER_VALUES_START = 'FETCH_USER_VALUES_START';
 export const FETCH_USER_VALUES_SUCCESS = 'FETCH_USER_VALUES_SUCCESS';
 export const FETCH_USER_VALUES_FAILURE = 'FETCH_USER_VALUES_FAILURE';
-export const USER_UNAUTHORIZED = 'USER_UNAUTHORIZED';
 
-export const getUserValues = () => dispatch => {
+export const getUserValues = id => dispatch => {
     dispatch({ type: FETCH_USER_VALUES_START });
     axios
-        .get('https://essentialism-backend.herokuapp.com/values', {
+        .get(`https://essentialism-backend.herokuapp.com/users/${id}/values`, {
             HEADERS: { Authorization: localStorage.getItem('token') }
         })
         .then(res => {
@@ -75,10 +94,6 @@ export const getUserValues = () => dispatch => {
         })
         .catch(err => {
             console.log(`get values: `, err.response)
-            if (err.response.status === 403) {
-                dispatch({ type: USER_UNAUTHORIZED, payload: err.response });
-            } else {
-                dispatch({ type: FETCH_USER_VALUES_FAILURE, payload: err.response });
-            }
+            dispatch({ type: FETCH_USER_VALUES_FAILURE, payload: err.response });
         });
 };

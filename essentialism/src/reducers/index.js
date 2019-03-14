@@ -3,17 +3,19 @@
 import {
     LOGIN_START,
     LOGIN_SUCCESS,
+    LOGIN_FAILURE,
     FETCH_VALUES_FAILURE,
     FETCH_VALUES_START,
     FETCH_VALUES_SUCCESS,
     SIGNUP_START,
     SIGNUP_SUCCESS,
-    USER_UNAUTHORIZED,
+    SIGNUP_FAILURE,
+    FETCH_USER_INFO_FAILURE,
+    FETCH_USER_INFO_START,
+    FETCH_USER_INFO_SUCCESS,
     FETCH_USER_VALUES_START,
     FETCH_USER_VALUES_SUCCESS,
     FETCH_USER_VALUES_FAILURE,
-    LOGIN_FAILURE,
-    SIGNUP_FAILURE
 } from '../actions'
 
 const initialState = {
@@ -23,21 +25,14 @@ const initialState = {
     id: null,
     errorStatusCode: null,
     error: '',
-    fetchingValues: false,
+    fetching: false,
     values: [],
-    fetchingUserValues: false,
+    userInfo: [],
     userValues: []
 }
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case USER_UNAUTHORIZED:
-            return {
-                ...state,
-                error: action.payload.data.error,
-                errorStatusCode: action.payload.status,
-                fetchingValues: false
-            }
         case LOGIN_START:
             return {
                 ...state,
@@ -77,13 +72,13 @@ const reducer = (state = initialState, action) => {
         case FETCH_VALUES_START:
             return {
                 ...state,
-                fetchingValues: true
+                fetching: true
             };
         case FETCH_VALUES_SUCCESS:
             return {
                 ...state,
                 errorStatusCode: null,
-                fetchingValues: false,
+                fetching: false,
                 values: action.payload
             }
         case FETCH_VALUES_FAILURE:
@@ -91,17 +86,17 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 error: action.payload.data.error,
                 errorStatusCode: action.payload.status,
-                fetchingValues: false
+                fetching: false
             }
         case FETCH_USER_VALUES_START:
             return {
                 ...state,
-                fetchingUserValues: true
+                fetching: true
             }
         case FETCH_USER_VALUES_SUCCESS:
             return {
                 ...state,
-                fetchingUserValues: false,
+                fetching: false,
                 userValues: action.payload
             }
         case FETCH_USER_VALUES_FAILURE:
@@ -109,7 +104,25 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 error: action.payload.data.error,
                 errorStatusCode: action.payload.status,
-                fetchingValues: false
+                fetching: false
+            }
+        case FETCH_USER_INFO_START:
+            return {
+                ...state,
+                fetching: true
+            }
+        case FETCH_USER_INFO_SUCCESS:
+            return {
+                ...state,
+                fetching: false,
+                userInfo: action.payload
+            }
+        case FETCH_USER_INFO_FAILURE:
+            return {
+                ...state,
+                error: action.payload.data.error,
+                errorStatusCode: action.payload.status,
+                fetching: false
             }
         default:
             return state;
