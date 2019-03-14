@@ -79,23 +79,23 @@ export const getUserInfo = id => dispatch => {
         });
 };
 
-export const ADD_USER_VALUES_START = 'ADD_USER_VALUES_START';
-export const ADD_USER_VALUES_SUCCESS = 'ADD_USER_VALUES_SUCCESS';
-export const ADD_USER_VALUES_FAILURE = 'ADD_USER_VALUES_FAILURE';
+export const UPDATE_USER_VALUES_START = 'UPDATE_USER_VALUES_START';
+export const UPDATE_USER_VALUES_SUCCESS = 'UPDATE_USER_VALUES_SUCCESS';
+export const UPDATE_USER_VALUES_FAILURE = 'UPDATE_USER_VALUES_FAILURE';
 
-export const addUserValues = (id, value) => dispatch => {
-    dispatch({ type: ADD_USER_VALUES_START });
+export const updateUserValues = (id, value) => dispatch => {
+    dispatch({ type: UPDATE_USER_VALUES_START });
     axios
-        .post(`https://essentialism-backend.herokuapp.com/users/${id}/values`, value, {
+        .put(`https://essentialism-backend.herokuapp.com/users/${id}/values`, value, {
             HEADERS: { Authorization: localStorage.getItem('token') }
         })
         .then(res => {
             console.log(`uservalues res: `, res.data)
-            dispatch({ type: ADD_USER_VALUES_SUCCESS, payload: res.data });
+            dispatch({ type: UPDATE_USER_VALUES_SUCCESS, payload: res.data });
         })
         .catch(err => {
             console.log(`uservalues err: `, err.response)
-            dispatch({ type: ADD_USER_VALUES_FAILURE, payload: err.response });
+            dispatch({ type: UPDATE_USER_VALUES_FAILURE, payload: err.response });
         });
 };
 
@@ -135,5 +135,25 @@ export const addUserJournal = (id, journal) => dispatch => {
         .catch(err => {
             console.log(`uservalues err: `, err.response)
             dispatch({ type: ADD_USER_JOURNAL_FAILURE, payload: err.response });
+        });
+};
+
+export const UPDATE_JOURNAL_START = 'UPDATE_JOURNAL_START';
+export const UPDATE_JOURNAL_SUCCESS = 'UPDATE_JOURNAL_SUCCESS';
+export const UPDATE_JOURNAL_FAILURE = 'UPDATE_JOURNAL_FAILURE';
+
+export const updateUserJournal = (id, journal) => dispatch => {
+    dispatch({ type: UPDATE_JOURNAL_START });
+    axios
+        .put(`https://essentialism-backend.herokuapp.com/users/${id}/values`, journal, {
+            HEADERS: { Authorization: localStorage.getItem('token') }
+        })
+        .then(res => {
+            console.log(`uservalues res: `, res.data)
+            dispatch({ type: UPDATE_JOURNAL_SUCCESS, payload: res.data });
+        })
+        .catch(err => {
+            console.log(`uservalues err: `, err.response)
+            dispatch({ type: UPDATE_JOURNAL_FAILURE, payload: err.response });
         });
 };
