@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-
+import { withRouter } from 'react-router-dom';
 import { login } from '../actions'
 
 class Login extends Component {
@@ -14,28 +14,27 @@ class Login extends Component {
     };
 
     handleChange = e => {
+        e.preventDefault();
         this.setState({
             credentials: {
                 ...this.state.credentials,
                 [e.target.name]: e.target.value
             }
-        });        
+        });
     };
 
     login = e => {
         e.preventDefault();
-        const newLocal = "/";
         this.props
             .login(this.state.credentials)
-            .then(() => this.props.history.push(newLocal));
+            .then(() => this.props.history.push('/'));
     }
 
     render() {
-        console.log(this.props);
         return (
             <div>
                 <form onSubmit={this.login}>
-                <label for='username'>Username</label>
+                    <label htmlFor='username'>Username</label>
                     <input
                         type='text'
                         name='username'
@@ -43,7 +42,7 @@ class Login extends Component {
                         value={this.state.credentials.username}
                         onChange={this.handleChange}
                     />
-                    <label for='password'>Password</label>
+                    <label htmlFor='password'>Password</label>
                     <input
                         type='password'
                         name='password'
@@ -53,7 +52,7 @@ class Login extends Component {
                     />
                     {this.props.error && <p>{this.props.error}</p>}
 
-                    <button>Login</button>
+                    <button type='submit'>Login</button>
                 </form>
             </div>
         );
@@ -65,7 +64,7 @@ const mapStateToProps = ({ error, loggingIn }) => ({
     loggingIn
 });
 
-export default connect(
+export default withRouter(connect(
     mapStateToProps,
     { login }
-)(Login);
+)(Login));
