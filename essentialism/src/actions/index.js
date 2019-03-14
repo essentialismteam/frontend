@@ -8,13 +8,14 @@ export const login = creds => dispatch => {
     dispatch({ type: LOGIN_START });
     return axios
         .post('https://essentialism-backend.herokuapp.com/auth/login', creds)
-        .then(res => {            
+        .then(res => {
+            console.log(`login res: `, res);
             localStorage.setItem('token', res.data.token);
-            dispatch({ type: LOGIN_SUCCESS, payload: res.data.payload});
+            dispatch({ type: LOGIN_SUCCESS, payload: res.data });
         })
         .catch(err => {
             console.log(`get values: `, err.response);
-            dispatch({ type: LOGIN_FAILURE, payload: err.response});
+            dispatch({ type: LOGIN_FAILURE, payload: err.response });
         });
 };
 
@@ -28,12 +29,14 @@ export const signup = creds => dispatch => {
         .post('https://essentialism-backend.herokuapp.com/auth/register', creds)
         .then(res => {
             console.log(res.data);
-            dispatch({ type: SIGNUP_SUCCESS, payload: res.data.payload})
+            localStorage.setItem('token', res.data.token);
+            dispatch({ type: SIGNUP_SUCCESS, payload: res.data })
         })
         .catch(err => {
             console.log(`get values: `, err.response);
-            dispatch({ type: LOGIN_FAILURE, payload: err.response});
-        });        
+            dispatch({ type: SIGNUP_FAILURE, payload: err.response });
+        });
+
 };
 
 export const FETCH_VALUES_START = 'FETCH_VALUES_START';
@@ -44,7 +47,7 @@ export const getValues = () => dispatch => {
     dispatch({ type: FETCH_VALUES_START });
     axios
         .get('https://essentialism-backend.herokuapp.com/values', {
-            HEADERS: { Authorization: localStorage.getItem('token')}
+            HEADERS: { Authorization: localStorage.getItem('token') }
         })
         .then(res => {
             console.log(res.data);
@@ -52,7 +55,7 @@ export const getValues = () => dispatch => {
         })
         .catch(err => {
             console.log(`get values: `, err.response)
-            dispatch({ type: FETCH_VALUES_FAILURE, payload: err.response });            
+            dispatch({ type: FETCH_VALUES_FAILURE, payload: err.response });
         });
 };
 
@@ -65,7 +68,7 @@ export const getUserValues = () => dispatch => {
     dispatch({ type: FETCH_USER_VALUES_START });
     axios
         .get('https://essentialism-backend.herokuapp.com/values', {
-            HEADERS: { Authorization: localStorage.getItem('token')}
+            HEADERS: { Authorization: localStorage.getItem('token') }
         })
         .then(res => {
             dispatch({ type: FETCH_USER_VALUES_SUCCESS, payload: res.data });

@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom';
 
 import { signup } from '../actions'
 
@@ -21,22 +22,30 @@ class Signup extends Component {
                 ...this.state.credentials,
                 [e.target.name]: e.target.value
             }
-        });        
+        });
     };
 
-    login = e => {
+    signup = e => {
         e.preventDefault();
+        let signupData = {
+            first_name: this.state.credentials.firstname,
+            last_name: this.state.credentials.lastname,
+            username: this.state.credentials.username,
+            password: this.state.credentials.password
+        }
+
         this.props
-            .signup(this.state.credentials)
-            this.props.history.push('/');
-            console.log(this.state.credentials);
+            .signup(signupData)
+        this.props.history.push('/');
+        console.log(this.state.credentials);
     }
 
-    render() {        
-        return (            
+    render() {
+        console.log(`signup: `, this.props);
+        return (
             <div>
-                <form onSubmit={this.login}>
-                <label htmlFor='firstname'>First Name</label>
+                <form onSubmit={this.signup}>
+                    <label htmlFor='firstname'>First Name</label>
                     <input
                         type='text'
                         name='firstname'
@@ -83,7 +92,7 @@ const mapStateToProps = ({ error, loggingIn }) => ({
     loggingIn
 });
 
-export default connect(
+export default withRouter(connect(
     mapStateToProps,
     { signup }
-)(Signup);
+)(Signup));

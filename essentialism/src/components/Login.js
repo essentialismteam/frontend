@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-
+import { withRouter } from 'react-router-dom';
 import { login } from '../actions'
 
 class Login extends Component {
@@ -14,27 +14,27 @@ class Login extends Component {
     };
 
     handleChange = e => {
+        e.preventDefault();
         this.setState({
             credentials: {
                 ...this.state.credentials,
                 [e.target.name]: e.target.value
             }
-        });        
+        });
     };
 
     login = e => {
         e.preventDefault();
         this.props
             .login(this.state.credentials)
-            this.props.history.push('/');
+            .then(this.props.history.push('/'));
     }
 
     render() {
-        console.log(this.props);
-        return (            
+        return (
             <div>
                 <form onSubmit={this.login}>
-                <label htmlFor='username'>Username</label>
+                    <label htmlFor='username'>Username</label>
                     <input
                         type='text'
                         name='username'
@@ -64,7 +64,7 @@ const mapStateToProps = ({ error, loggingIn }) => ({
     loggingIn
 });
 
-export default connect(
+export default withRouter(connect(
     mapStateToProps,
     { login }
-)(Login);
+)(Login));

@@ -1,4 +1,6 @@
-import { 
+
+
+import {
     LOGIN_START,
     LOGIN_SUCCESS,
     FETCH_VALUES_FAILURE,
@@ -10,7 +12,8 @@ import {
     FETCH_USER_VALUES_START,
     FETCH_USER_VALUES_SUCCESS,
     FETCH_USER_VALUES_FAILURE,
-    LOGIN_FAILURE
+    LOGIN_FAILURE,
+    SIGNUP_FAILURE
 } from '../actions'
 
 const initialState = {
@@ -24,7 +27,6 @@ const initialState = {
     values: [],
     fetchingUserValues: false,
     userValues: []
-
 }
 
 const reducer = (state = initialState, action) => {
@@ -64,6 +66,13 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 signingUp: false
+            }
+        case SIGNUP_FAILURE:
+            return {
+                ...state,
+                error: action.payload.data.error,
+                errorStatusCode: action.payload.status,
+                signingIn: false
             }
         case FETCH_VALUES_START:
             return {
