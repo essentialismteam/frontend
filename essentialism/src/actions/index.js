@@ -106,7 +106,7 @@ export const DELETE_USER_VALUES_FAILURE = 'DELETE_USER_VALUES_FAILURE';
 export const deleteUserValues = id => dispatch => {
     dispatch({ type: DELETE_USER_VALUES_START });
     axios
-        .delete(`http://localhost:5000/api/friends/${id}`, {
+        .delete(`https://essentialism-backend.herokuapp.com/users/${id}/values`, {
             headers: { Authorization: localStorage.getItem('token') }
         })
         .then(res => {
@@ -149,11 +149,51 @@ export const updateUserJournal = (id, journal) => dispatch => {
             HEADERS: { Authorization: localStorage.getItem('token') }
         })
         .then(res => {
-            console.log(`uservalues res: `, res.data)
+            console.log(`user journal res: `, res.data)
             dispatch({ type: UPDATE_JOURNAL_SUCCESS, payload: res.data });
         })
         .catch(err => {
-            console.log(`uservalues err: `, err.response)
+            console.log(`user journal err: `, err.response)
             dispatch({ type: UPDATE_JOURNAL_FAILURE, payload: err.response });
+        });
+};
+
+export const DELETE_JOURNAL_START = 'DELETE_JOURNAL_START';
+export const DELETE_JOURNAL_SUCCESS = 'DELETE_JOURNAL_SUCCESS';
+export const DELETE_JOURNAL_FAILURE = 'DELETE_JOURNAL_FAILURE';
+
+export const updateUserJournal = id => dispatch => {
+    dispatch({ type: UPDATE_JOURNAL_START });
+    axios
+        .delete(`https://essentialism-backend.herokuapp.com/users/${id}/values`, {
+            HEADERS: { Authorization: localStorage.getItem('token') }
+        })
+        .then(res => {
+            console.log(`user journal res: `, res.data)
+            dispatch({ type: UPDATE_JOURNAL_SUCCESS, payload: res.data });
+        })
+        .catch(err => {
+            console.log(`user journal err: `, err.response)
+            dispatch({ type: UPDATE_JOURNAL_FAILURE, payload: err.response });
+        });
+};
+
+export const ADD_PROJECT_START = 'ADD_PROJECT_START';
+export const ADD_PROJECT_SUCCESS = 'ADD_PROJECT_SUCCESS';
+export const ADD_PROJECT_FAILURE = 'ADD_PROJECT_FAILURE';
+
+export const addUserProject = (id, project) => dispatch => {
+    dispatch({ type: ADD_USER_PROJECT_START });
+    axios
+        .post(`https://essentialism-backend.herokuapp.com/users/${id}/values`, project, {
+            HEADERS: { Authorization: localStorage.getItem('token') }
+        })
+        .then(res => {
+            console.log(`user journal res: `, res.data)
+            dispatch({ type: ADD_PROJECT_SUCCESS, payload: res.data });
+        })
+        .catch(err => {
+            console.log(`user project err: `, err.response)
+            dispatch({ type: ADD_PROJECT_FAILURE, payload: err.response });
         });
 };

@@ -24,7 +24,10 @@ import {
     ADD_USER_JOURNAL_SUCCESS,
     UPDATE_JOURNAL_FAILURE,
     UPDATE_JOURNAL_START,
-    UPDATE_JOURNAL_SUCCESS
+    UPDATE_JOURNAL_SUCCESS,
+    DELETE_JOURNAL_FAILURE,
+    DELETE_JOURNAL_START,
+    DELETE_JOURNAL_SUCCESS
 } from '../actions'
 
 const initialState = {
@@ -187,9 +190,28 @@ const reducer = (state = initialState, action) => {
                 errorStatusCode: action.payload.status,
                 fetching: false
             }
+        case DELETE_JOURNAL_START:
+            return {
+                ...state,
+                deleting: true
+            };
+        case DELETE_JOURNAL_SUCCESS:
+            return {
+                ...state,
+                deleting: false,
+                error: '',
+                message: action.payload
+            }
+        case DELETE_JOURNAL_FAILURE:
+            return {
+                ...state,
+                deleting: false,
+                error: ''
+            }
         default:
             return state;
     }
+
 };
 
 export default reducer;
