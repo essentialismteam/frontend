@@ -1,13 +1,16 @@
 import axios from 'axios';
+import { axiosWithAuth } from '../helpers/axiosAuth'
 
 export const LOGIN_START = 'LOGIN_START';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 
+const apiUrl = 'https://essentialism-backend.herokuapp.com/'
+
 export const login = creds => dispatch => {
     dispatch({ type: LOGIN_START });
     return axios
-        .post('https://essentialism-backend.herokuapp.com/auth/login', creds)
+        .post(`${apiUrl}auth/login`, creds)
         .then(res => {
             console.log(`login res: `, res);
             localStorage.setItem('token', res.data.token);
@@ -27,7 +30,7 @@ export const SIGNUP_FAILURE = 'SIGNUP_FAILURE';
 export const signup = creds => dispatch => {
     dispatch({ type: SIGNUP_START });
     return axios
-        .post('https://essentialism-backend.herokuapp.com/auth/register', creds)
+        .post(`${apiUrl}auth/register`, creds)
         .then(res => {
             console.log(`signup res: `, res.data);
             localStorage.setItem('token', res.data.token);
@@ -47,7 +50,7 @@ export const FETCH_VALUES_FAILURE = 'FETCH_VALUES_FAILURE';
 export const getValues = () => dispatch => {
     dispatch({ type: FETCH_VALUES_START });
     axios
-        .get('https://essentialism-backend.herokuapp.com/values', {
+        .get(`${apiUrl}values`, {
             HEADERS: { authorization: localStorage.getItem('token') }
         })
         .then(res => {
@@ -67,8 +70,8 @@ export const FETCH_USER_INFO_FAILURE = 'FETCH_USER_INFO_FAILURE';
 export const getUserInfo = id => dispatch => {
     dispatch({ type: FETCH_USER_INFO_START });
     console.log(id);
-    axios
-        .get(`https://essentialism-backend.herokuapp.com/users/${id}`)
+    axiosWithAuth
+        .get(`${apiUrl}users/${id}`)
         .then(res => {
             console.log(`userinfo res: `, res.data);
             dispatch({ type: FETCH_USER_INFO_SUCCESS, payload: res.data });
@@ -86,7 +89,7 @@ export const ADD_USER_VALUES_FAILURE = 'ADD_USER_VALUES_FAILURE';
 export const addValue = (id, value) => dispatch => {
     dispatch({ type: ADD_USER_VALUES_START });
     axios
-        .post(`https://essentialism-backend.herokuapp.com/users/${id}/values`, value, {
+        .post(`${apiUrl}users/${id}/values`, value, {
             HEADERS: { authorization: localStorage.getItem('token') }
         })
         .then(res => {
@@ -106,7 +109,7 @@ export const UPDATE_USER_VALUES_FAILURE = 'UPDATE_USER_VALUES_FAILURE';
 export const updateUserValues = (id, value) => dispatch => {
     dispatch({ type: UPDATE_USER_VALUES_START });
     axios
-        .put(`https://essentialism-backend.herokuapp.com/users/${id}/values`, value, {
+        .put(`${apiUrl}users/${id}/values`, value, {
             HEADERS: { authorization: localStorage.getItem('token') }
         })
         .then(res => {
@@ -126,7 +129,7 @@ export const DELETE_USER_VALUES_FAILURE = 'DELETE_USER_VALUES_FAILURE';
 export const deleteUserValues = id => dispatch => {
     dispatch({ type: DELETE_USER_VALUES_START });
     axios
-        .delete(`https://essentialism-backend.herokuapp.com/users/${id}/values`, {
+        .delete(`${apiUrl}users/${id}/values`, {
             headers: { authorization: localStorage.getItem('token') }
         })
         .then(res => {
@@ -145,7 +148,7 @@ export const ADD_USER_JOURNAL_FAILURE = 'ADD_USER_JOURNAL_FAILURE';
 export const addJournal = (id, journal) => dispatch => {
     dispatch({ type: ADD_USER_JOURNAL_START });
     axios
-        .post(`https://essentialism-backend.herokuapp.com/users/${id}/values`, journal, {
+        .post(`${apiUrl}users/${id}/values`, journal, {
             HEADERS: { authorization: localStorage.getItem('token') }
         })
         .then(res => {
@@ -165,7 +168,7 @@ export const UPDATE_JOURNAL_FAILURE = 'UPDATE_JOURNAL_FAILURE';
 export const updateJournal = (id, journal) => dispatch => {
     dispatch({ type: UPDATE_JOURNAL_START });
     axios
-        .put(`https://essentialism-backend.herokuapp.com/users/${id}/journal`, journal, {
+        .put(`${apiUrl}users/${id}/journal`, journal, {
             HEADERS: { authorization: localStorage.getItem('token') }
         })
         .then(res => {
@@ -185,7 +188,7 @@ export const DELETE_JOURNAL_FAILURE = 'DELETE_JOURNAL_FAILURE';
 export const deleteJournal = id => dispatch => {
     dispatch({ type: UPDATE_JOURNAL_START });
     axios
-        .delete(`https://essentialism-backend.herokuapp.com/users/${id}/journal`, {
+        .delete(`${apiUrl}users/${id}/journal`, {
             HEADERS: { authorization: localStorage.getItem('token') }
         })
         .then(res => {
@@ -206,8 +209,8 @@ export const addProject = (id, project) => dispatch => {
     dispatch({ type: ADD_PROJECT_START });
     console.log(`id: `, id)
     console.log(`project: `, project)
-    axios
-        .post(`https://essentialism-backend.herokuapp.com/users/${id}/projects`, project, {
+    return axiosWithAuth
+        .post(`${apiUrl}users/${id}/projects`, project, {
             HEADERS: { authorization: localStorage.getItem('token') }
         })
         .then(res => {
@@ -227,7 +230,7 @@ export const UPDATE_PROJECT_FAILURE = 'UPDATE_JOURNAL_FAILURE';
 export const updateProject = (id, project) => dispatch => {
     dispatch({ type: UPDATE_PROJECT_START });
     axios
-        .put(`https://essentialism-backend.herokuapp.com/users/${id}/projects`, project, {
+        .put(`${apiUrl}users/${id}/projects`, project, {
             HEADERS: { authorization: localStorage.getItem('token') }
         })
         .then(res => {
@@ -249,7 +252,7 @@ export const deleteProject = (userID, projID) => dispatch => {
     console.log(`userID: `, userID)
     console.log(`projID: `, projID)
     axios
-        .delete(`https://essentialism-backend.herokuapp.com/users/${userID}/projects`, projID, {
+        .delete(`${apiUrl}users/${userID}/projects`, projID, {
             HEADERS: { authorization: localStorage.getItem('token') }
         })
         .then(res => {
