@@ -50,7 +50,6 @@ class Login extends Component {
                         value={this.state.credentials.password}
                         onChange={this.handleChange}
                     />
-                    {this.props.error && <p>{this.props.error}</p>}
 
                     <button type='submit'>Login</button>
                 </form>

@@ -33,7 +33,7 @@ export const signup = creds => dispatch => {
         .post(`${apiUrl}auth/register`, creds)
         .then(res => {
             console.log(`signup res: `, res.data);
-            localStorage.setItem('token', res.data.token);
+            localStorage.setItem('token', res.data.token);;
             dispatch({ type: SIGNUP_SUCCESS, payload: res.data })
         })
         .catch(err => {
@@ -69,7 +69,6 @@ export const FETCH_USER_INFO_FAILURE = 'FETCH_USER_INFO_FAILURE';
 
 export const getUserInfo = id => dispatch => {
     dispatch({ type: FETCH_USER_INFO_START });
-    console.log(id);
     axiosWithAuth
         .get(`${apiUrl}users/${id}`)
         .then(res => {
@@ -249,8 +248,6 @@ export const DELETE_PROJECT_FAILURE = 'DELETE_PROJECT_FAILURE';
 
 export const deleteProject = (userID, projID) => dispatch => {
     dispatch({ type: DELETE_PROJECT_START });
-    console.log(`userID: `, userID)
-    console.log(`projID: `, projID)
     return axiosWithAuth
         .delete(`${apiUrl}users/${userID}/projects`, projID, {
             HEADERS: { authorization: localStorage.getItem('token') }
