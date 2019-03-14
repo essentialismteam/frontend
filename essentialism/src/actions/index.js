@@ -265,4 +265,4 @@ export const deleteProject = (userID, projID) => dispatch => {
         });
 };
 
-//thanks for reading this far
+//thanks for reading this far, have a nice day
