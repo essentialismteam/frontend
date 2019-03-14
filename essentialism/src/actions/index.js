@@ -264,3 +264,5 @@ export const deleteProject = (userID, projID) => dispatch => {
             dispatch({ type: DELETE_PROJECT_FAILURE, payload: err.response });
         });
 };
+
+//thanks for reading this far
