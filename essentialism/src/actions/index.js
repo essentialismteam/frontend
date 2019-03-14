@@ -118,4 +118,22 @@ export const deleteUserValues = id => dispatch => {
         });
 };
 
-export const UPDATE_USER_VALUES_START = 
+export const ADD_USER_JOURNAL_START = 'ADD_USER_JOURNAL_START';
+export const ADD_USER_JOURNAL_SUCCESS = 'ADD_USER_JOURNAL_SUCCESS';
+export const ADD_USER_JOURNAL_FAILURE = 'ADD_USER_JOURNAL_FAILURE';
+
+export const addUserJournal = (id, journal) => dispatch => {
+    dispatch({ type: ADD_USER_JOURNAL_START });
+    axios
+        .post(`https://essentialism-backend.herokuapp.com/users/${id}/values`, journal, {
+            HEADERS: { Authorization: localStorage.getItem('token') }
+        })
+        .then(res => {
+            console.log(`uservalues res: `, res.data)
+            dispatch({ type: ADD_USER_JOURNAL_SUCCESS, payload: res.data });
+        })
+        .catch(err => {
+            console.log(`uservalues err: `, err.response)
+            dispatch({ type: ADD_USER_JOURNAL_FAILURE, payload: err.response });
+        });
+};

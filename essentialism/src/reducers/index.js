@@ -18,7 +18,10 @@ import {
     ADD_USER_VALUES_FAILURE,
     DELETE_USER_VALUES_FAILURE,
     DELETE_USER_VALUES_START,
-    DELETE_USER_VALUES_SUCCESS
+    DELETE_USER_VALUES_SUCCESS,
+    ADD_USER_JOURNAL_FAILURE,
+    ADD_USER_JOURNAL_START,
+    ADD_USER_JOURNAL_SUCCESS
 } from '../actions'
 
 const initialState = {
@@ -144,6 +147,24 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 deleting: false,
                 error: ''
+            }
+        case ADD_USER_JOURNAL_START:
+            return {
+                ...state,
+                fetching: true
+            }
+        case ADD_USER_JOURNAL_SUCCESS:
+            return {
+                ...state,
+                fetching: false,
+                userValues: action.payload
+            }
+        case ADD_USER_JOURNAL_FAILURE:
+            return {
+                ...state,
+                error: action.payload.data.error,
+                errorStatusCode: action.payload.status,
+                fetching: false
             }
         default:
             return state;
