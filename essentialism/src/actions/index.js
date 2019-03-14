@@ -48,7 +48,7 @@ export const getValues = () => dispatch => {
     dispatch({ type: FETCH_VALUES_START });
     axios
         .get('https://essentialism-backend.herokuapp.com/values', {
-            HEADERS: { Authorization: localStorage.getItem('token') }
+            HEADERS: { authorization: localStorage.getItem('token') }
         })
         .then(res => {
             console.log(`globalvalues res: `, res.data);
@@ -79,6 +79,26 @@ export const getUserInfo = id => dispatch => {
         });
 };
 
+export const ADD_USER_VALUES_START = 'ADD_USER_VALUES_START';
+export const ADD_USER_VALUES_SUCCESS = 'ADD_USER_VALUES_SUCCESS';
+export const ADD_USER_VALUES_FAILURE = 'ADD_USER_VALUES_FAILURE';
+
+export const addValue = (id, value) => dispatch => {
+    dispatch({ type: ADD_USER_VALUES_START });
+    axios
+        .post(`https://essentialism-backend.herokuapp.com/users/${id}/values`, value, {
+            HEADERS: { authorization: localStorage.getItem('token') }
+        })
+        .then(res => {
+            console.log(`user values res: `, res.data)
+            dispatch({ type: ADD_USER_VALUES_SUCCESS, payload: res.data });
+        })
+        .catch(err => {
+            console.log(`user values err: `, err.response)
+            dispatch({ type: ADD_USER_VALUES_FAILURE, payload: err.response });
+        });
+};
+
 export const UPDATE_USER_VALUES_START = 'UPDATE_USER_VALUES_START';
 export const UPDATE_USER_VALUES_SUCCESS = 'UPDATE_USER_VALUES_SUCCESS';
 export const UPDATE_USER_VALUES_FAILURE = 'UPDATE_USER_VALUES_FAILURE';
@@ -87,7 +107,7 @@ export const updateUserValues = (id, value) => dispatch => {
     dispatch({ type: UPDATE_USER_VALUES_START });
     axios
         .put(`https://essentialism-backend.herokuapp.com/users/${id}/values`, value, {
-            HEADERS: { Authorization: localStorage.getItem('token') }
+            HEADERS: { authorization: localStorage.getItem('token') }
         })
         .then(res => {
             console.log(`uservalues res: `, res.data)
@@ -107,7 +127,7 @@ export const deleteUserValues = id => dispatch => {
     dispatch({ type: DELETE_USER_VALUES_START });
     axios
         .delete(`https://essentialism-backend.herokuapp.com/users/${id}/values`, {
-            headers: { Authorization: localStorage.getItem('token') }
+            headers: { authorization: localStorage.getItem('token') }
         })
         .then(res => {
             dispatch({ type: DELETE_USER_VALUES_SUCCESS, payload: res.data });
@@ -126,7 +146,7 @@ export const addJournal = (id, journal) => dispatch => {
     dispatch({ type: ADD_USER_JOURNAL_START });
     axios
         .post(`https://essentialism-backend.herokuapp.com/users/${id}/values`, journal, {
-            HEADERS: { Authorization: localStorage.getItem('token') }
+            HEADERS: { authorization: localStorage.getItem('token') }
         })
         .then(res => {
             console.log(`uservalues res: `, res.data)
@@ -146,7 +166,7 @@ export const updateJournal = (id, journal) => dispatch => {
     dispatch({ type: UPDATE_JOURNAL_START });
     axios
         .put(`https://essentialism-backend.herokuapp.com/users/${id}/journal`, journal, {
-            HEADERS: { Authorization: localStorage.getItem('token') }
+            HEADERS: { authorization: localStorage.getItem('token') }
         })
         .then(res => {
             console.log(`user journal res: `, res.data)
@@ -166,7 +186,7 @@ export const deleteJournal = id => dispatch => {
     dispatch({ type: UPDATE_JOURNAL_START });
     axios
         .delete(`https://essentialism-backend.herokuapp.com/users/${id}/journal`, {
-            HEADERS: { Authorization: localStorage.getItem('token') }
+            HEADERS: { authorization: localStorage.getItem('token') }
         })
         .then(res => {
             console.log(`user journal res: `, res.data)
@@ -184,9 +204,11 @@ export const ADD_PROJECT_FAILURE = 'ADD_PROJECT_FAILURE';
 
 export const addProject = (id, project) => dispatch => {
     dispatch({ type: ADD_PROJECT_START });
+    console.log(`id: `, id)
+    console.log(`project: `, project)
     axios
         .post(`https://essentialism-backend.herokuapp.com/users/${id}/projects`, project, {
-            HEADERS: { Authorization: localStorage.getItem('token') }
+            HEADERS: { authorization: localStorage.getItem('token') }
         })
         .then(res => {
             console.log(`user project res: `, res.data)
@@ -206,7 +228,7 @@ export const updateProject = (id, project) => dispatch => {
     dispatch({ type: UPDATE_PROJECT_START });
     axios
         .put(`https://essentialism-backend.herokuapp.com/users/${id}/projects`, project, {
-            HEADERS: { Authorization: localStorage.getItem('token') }
+            HEADERS: { authorization: localStorage.getItem('token') }
         })
         .then(res => {
             console.log(`user project res: `, res.data)
@@ -222,18 +244,20 @@ export const DELETE_PROJECT_START = 'DELETE_PROJECT_START';
 export const DELETE_PROJECT_SUCCESS = 'DELETE_PROJECT_SUCCESS';
 export const DELETE_PROJECT_FAILURE = 'DELETE_PROJECT_FAILURE';
 
-export const deleteProject = id => dispatch => {
-    dispatch({ type: UPDATE_JOURNAL_START });
+export const deleteProject = (userID, projID) => dispatch => {
+    dispatch({ type: DELETE_PROJECT_START });
+    console.log(`userID: `, userID)
+    console.log(`projID: `, projID)
     axios
-        .delete(`https://essentialism-backend.herokuapp.com/users/${id}/projects`, {
-            HEADERS: { Authorization: localStorage.getItem('token') }
+        .delete(`https://essentialism-backend.herokuapp.com/users/${userID}/projects`, projID, {
+            HEADERS: { authorization: localStorage.getItem('token') }
         })
         .then(res => {
             console.log(`user project res: `, res.data)
-            dispatch({ type: UPDATE_JOURNAL_SUCCESS, payload: res.data });
+            dispatch({ type: DELETE_PROJECT_SUCCESS, payload: res.data });
         })
         .catch(err => {
             console.log(`user project err: `, err.response)
-            dispatch({ type: UPDATE_JOURNAL_FAILURE, payload: err.response });
+            dispatch({ type: DELETE_PROJECT_FAILURE, payload: err.response });
         });
 };

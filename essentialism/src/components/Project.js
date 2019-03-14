@@ -1,20 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import { deleteProject } from '../actions'
+
 class Project extends Component {
   constructor(props) {
     super(props)
   }
 
-  deleteProject = id => {
-    this.props.deleteProject(id);
+  deleteProject = projID => {
+    const userID = localStorage.getItem('userID');
+    this.props.deleteProject(userID, { id: projID });
   };
 
   render() {
     return (
       <div>
         <div>
-          <p>{this.props.project} <span>x</span></p>
+          <p>{this.props.project} <span onClick={() => this.deleteProject(this.props.projectID)}>x</span></p>
         </div>
         <div>
 
@@ -24,10 +27,8 @@ class Project extends Component {
   }
 }
 
-const mapStateToProps = ({ deleteProject }) => ({
-  deleteProject
-})
+
 export default connect(
-  mapStateToProps,
+  null,
   { deleteProject }
 )(Project);
