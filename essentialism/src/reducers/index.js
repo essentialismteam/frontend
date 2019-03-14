@@ -50,7 +50,41 @@ const initialState = {
     updating: false,
     deleting: false,
     values: [],
-    userInfo: [],
+    userInfo: {
+        "id": 1,
+        "username": "admin",
+        "first_name": "John",
+        "last_name": "Doe",
+        "journal": "I want to have fun and be able to do lots of adventurous things.", // does not show up in response if user has not posted a journal entry
+        "values": [
+            {
+                "value": "Athletic ability",
+                "id": 1
+            },
+            {
+                "value": "Living in the moment",
+                "id": 6
+            },
+            {
+                "value": "Sense of humor",
+                "id": 13
+            }
+        ], // defaults to an empty array if user has not submitted values
+        "projects": [
+            {
+                "id": 1,
+                "project": "Skydiving certification"
+            },
+            {
+                "id": 2,
+                "project": "Weekend dogwalking"
+            },
+            {
+                "id": 3,
+                "project": "Full-time job -- long commute"
+            }
+        ] // defaults to an empty array if user has not submitted projects
+    },
     userValue: {},
     userJournal: {},
     userProject: {}
