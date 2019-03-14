@@ -1,19 +1,23 @@
 import React, { Component } from 'react';
-// import { connect } from 'react-redux'
+import { connect } from 'react-redux'
 
 class Projects extends Component {
     render() {
-        return <h3>Projects</h3>
+        return (
+
+            <h3>Projects</h3>
+
+        )
     }
 
 }
 
-export default Projects;
-// const mapStateToProps = ({ error, loggingIn }) => ({
 
-// });
+const mapStateToProps = (state) => {
+    return { projects: state.userInfo.projects }
+};
 
-// export default connect(
-//     mapStateToProps,
-//     {}
-// )(Projects);
+export default connect(
+    mapStateToProps,
+    {}
+)(Projects);

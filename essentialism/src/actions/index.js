@@ -122,7 +122,7 @@ export const ADD_USER_JOURNAL_START = 'ADD_USER_JOURNAL_START';
 export const ADD_USER_JOURNAL_SUCCESS = 'ADD_USER_JOURNAL_SUCCESS';
 export const ADD_USER_JOURNAL_FAILURE = 'ADD_USER_JOURNAL_FAILURE';
 
-export const addUserJournal = (id, journal) => dispatch => {
+export const addJournal = (id, journal) => dispatch => {
     dispatch({ type: ADD_USER_JOURNAL_START });
     axios
         .post(`https://essentialism-backend.herokuapp.com/users/${id}/values`, journal, {
@@ -142,10 +142,10 @@ export const UPDATE_JOURNAL_START = 'UPDATE_JOURNAL_START';
 export const UPDATE_JOURNAL_SUCCESS = 'UPDATE_JOURNAL_SUCCESS';
 export const UPDATE_JOURNAL_FAILURE = 'UPDATE_JOURNAL_FAILURE';
 
-export const updateUserJournal = (id, journal) => dispatch => {
+export const updateJournal = (id, journal) => dispatch => {
     dispatch({ type: UPDATE_JOURNAL_START });
     axios
-        .put(`https://essentialism-backend.herokuapp.com/users/${id}/values`, journal, {
+        .put(`https://essentialism-backend.herokuapp.com/users/${id}/journal`, journal, {
             HEADERS: { Authorization: localStorage.getItem('token') }
         })
         .then(res => {
@@ -162,10 +162,10 @@ export const DELETE_JOURNAL_START = 'DELETE_JOURNAL_START';
 export const DELETE_JOURNAL_SUCCESS = 'DELETE_JOURNAL_SUCCESS';
 export const DELETE_JOURNAL_FAILURE = 'DELETE_JOURNAL_FAILURE';
 
-export const deleteUserJournal = id => dispatch => {
+export const deleteJournal = id => dispatch => {
     dispatch({ type: UPDATE_JOURNAL_START });
     axios
-        .delete(`https://essentialism-backend.herokuapp.com/users/${id}/values`, {
+        .delete(`https://essentialism-backend.herokuapp.com/users/${id}/journal`, {
             HEADERS: { Authorization: localStorage.getItem('token') }
         })
         .then(res => {
@@ -185,11 +185,11 @@ export const ADD_PROJECT_FAILURE = 'ADD_PROJECT_FAILURE';
 export const addProject = (id, project) => dispatch => {
     dispatch({ type: ADD_PROJECT_START });
     axios
-        .post(`https://essentialism-backend.herokuapp.com/users/${id}/values`, project, {
+        .post(`https://essentialism-backend.herokuapp.com/users/${id}/projects`, project, {
             HEADERS: { Authorization: localStorage.getItem('token') }
         })
         .then(res => {
-            console.log(`user journal res: `, res.data)
+            console.log(`user project res: `, res.data)
             dispatch({ type: ADD_PROJECT_SUCCESS, payload: res.data });
         })
         .catch(err => {
@@ -198,22 +198,42 @@ export const addProject = (id, project) => dispatch => {
         });
 };
 
-// export const UPDATE_PROJECT_START = 'UPDATE_JOURNAL_START';
-// export const UPDATE_PROJ_SUCCESS = 'UPDATE_JOURNAL_SUCCESS';
-// export const UPDATE_JOURNAL_FAILURE = 'UPDATE_JOURNAL_FAILURE';
+export const UPDATE_PROJECT_START = 'UPDATE_JOURNAL_START';
+export const UPDATE_PROJECT_SUCCESS = 'UPDATE_JOURNAL_SUCCESS';
+export const UPDATE_PROJECT_FAILURE = 'UPDATE_JOURNAL_FAILURE';
 
-// export const updateUser = (id, journal) => dispatch => {
-//     dispatch({ type: UPDATE_JOURNAL_START });
-//     axios
-//         .put(`https://essentialism-backend.herokuapp.com/users/${id}/values`, journal, {
-//             HEADERS: { Authorization: localStorage.getItem('token') }
-//         })
-//         .then(res => {
-//             console.log(`user journal res: `, res.data)
-//             dispatch({ type: UPDATE_JOURNAL_SUCCESS, payload: res.data });
-//         })
-//         .catch(err => {
-//             console.log(`user journal err: `, err.response)
-//             dispatch({ type: UPDATE_JOURNAL_FAILURE, payload: err.response });
-//         });
-// };
+export const updateProject = (id, project) => dispatch => {
+    dispatch({ type: UPDATE_PROJECT_START });
+    axios
+        .put(`https://essentialism-backend.herokuapp.com/users/${id}/projects`, project, {
+            HEADERS: { Authorization: localStorage.getItem('token') }
+        })
+        .then(res => {
+            console.log(`user project res: `, res.data)
+            dispatch({ type: UPDATE_PROJECT_SUCCESS, payload: res.data });
+        })
+        .catch(err => {
+            console.log(`user project err: `, err.response)
+            dispatch({ type: UPDATE_PROJECT_FAILURE, payload: err.response });
+        });
+};
+
+export const DELETE_PROJECT_START = 'DELETE_PROJECT_START';
+export const DELETE_PROJECT_SUCCESS = 'DELETE_PROJECT_SUCCESS';
+export const DELETE_PROJECT_FAILURE = 'DELETE_PROJECT_FAILURE';
+
+export const deleteProject = id => dispatch => {
+    dispatch({ type: UPDATE_JOURNAL_START });
+    axios
+        .delete(`https://essentialism-backend.herokuapp.com/users/${id}/projects`, {
+            HEADERS: { Authorization: localStorage.getItem('token') }
+        })
+        .then(res => {
+            console.log(`user project res: `, res.data)
+            dispatch({ type: UPDATE_JOURNAL_SUCCESS, payload: res.data });
+        })
+        .catch(err => {
+            console.log(`user project err: `, err.response)
+            dispatch({ type: UPDATE_JOURNAL_FAILURE, payload: err.response });
+        });
+};
