@@ -26,9 +26,8 @@ class Dashboard extends Component {
     };
 }
 
-const mapStateToProps = ({ getUserInfo }) => ({ getUserInfo });
 
 export default connect(
-    mapStateToProps,
+    null,
     { getUserInfo }
 )(Dashboard);
