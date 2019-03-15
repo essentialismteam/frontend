@@ -49,10 +49,8 @@ export const FETCH_VALUES_FAILURE = 'FETCH_VALUES_FAILURE';
 
 export const getValues = () => dispatch => {
     dispatch({ type: FETCH_VALUES_START });
-    axios
-        .get(`${apiUrl}values`, {
-            HEADERS: { authorization: localStorage.getItem('token') }
-        })
+    axiosWithAuth
+        .get(`${apiUrl}values`)
         .then(res => {
             console.log(`globalvalues res: `, res.data);
             dispatch({ type: FETCH_VALUES_SUCCESS, payload: res.data });
@@ -108,9 +106,7 @@ export const UPDATE_USER_VALUES_FAILURE = 'UPDATE_USER_VALUES_FAILURE';
 export const updateUserValues = (id, value) => dispatch => {
     dispatch({ type: UPDATE_USER_VALUES_START });
     return axiosWithAuth
-        .put(`${apiUrl}users/${id}/values`, value, {
-            HEADERS: { authorization: localStorage.getItem('token') }
-        })
+        .put(`${apiUrl}users/${id}/values`, value)
         .then(res => {
             console.log(`uservalues res: `, res.data)
             dispatch({ type: UPDATE_USER_VALUES_SUCCESS, payload: res.data });
