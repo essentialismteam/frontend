@@ -9,7 +9,6 @@ export const axiosWithAuth = axios.create({
 // axios.interceptors.request.use(
 //   function(options) {
 //     options.headers.authorization = localStorage.getItem("token");
-
 //     return options;
 //   }
 // )
