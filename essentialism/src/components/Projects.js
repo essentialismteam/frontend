@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import { Project } from '../components';
 
-import { addProject } from '../actions'
+import { addProject, getUserInfo } from '../actions'
 
 
 class Projects extends Component {
@@ -30,6 +30,7 @@ class Projects extends Component {
                     ...this.state,
                     project: ''
                 }))
+            .then(this.props.getUserInfo)
     }
 
     render() {
@@ -70,5 +71,5 @@ const mapStateToProps = (state) => {
 
 export default connect(
     mapStateToProps,
-    { addProject }
+    { addProject, getUserInfo }
 )(Projects);

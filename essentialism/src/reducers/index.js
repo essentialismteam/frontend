@@ -52,7 +52,8 @@ const initialState = {
     values: [],
     userInfo: {
         projects: [],
-        values: []
+        values: [],
+        journal: []
     },
     userValue: {},
     userJournal: {},

@@ -38,8 +38,7 @@ class Project extends Component {
   };
 
   deleteProject = projID => {
-    const userID = localStorage.getItem('userID');
-    this.props.deleteProject(userID, { id: projID });
+    this.props.deleteProject(this.state.userID, { id: projID });
   };
 
   render() {
