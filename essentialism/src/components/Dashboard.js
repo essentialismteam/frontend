@@ -21,6 +21,9 @@ class Dashboard extends Component {
                     <Projects />
                     <Values />
                 </div>
+                <div>
+                    <p>{this.props.error}</p>
+                </div>
             </div>
         );
     };

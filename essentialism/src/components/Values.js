@@ -1,7 +1,16 @@
 import React from 'react';
 
+import { Value } from '../components';
+
 const Values = () => {
-    return <h3>Values</h3>
+    return (
+        <div>
+            <h3>Values</h3>
+            <Value />
+        </div>
+
+    )
+
 }
 
 export default Values;

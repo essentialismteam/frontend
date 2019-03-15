@@ -33,7 +33,7 @@ export const signup = creds => dispatch => {
         .post(`${apiUrl}auth/register`, creds)
         .then(res => {
             console.log(`signup res: `, res.data);
-            localStorage.setItem('token', res.data.token);
+            localStorage.setItem('token', res.data.token);;
             dispatch({ type: SIGNUP_SUCCESS, payload: res.data })
         })
         .catch(err => {
@@ -69,7 +69,6 @@ export const FETCH_USER_INFO_FAILURE = 'FETCH_USER_INFO_FAILURE';
 
 export const getUserInfo = id => dispatch => {
     dispatch({ type: FETCH_USER_INFO_START });
-    console.log(id);
     axiosWithAuth
         .get(`${apiUrl}users/${id}`)
         .then(res => {
@@ -88,7 +87,7 @@ export const ADD_USER_VALUES_FAILURE = 'ADD_USER_VALUES_FAILURE';
 
 export const addValue = (id, value) => dispatch => {
     dispatch({ type: ADD_USER_VALUES_START });
-    axios
+    return axiosWithAuth
         .post(`${apiUrl}users/${id}/values`, value, {
             HEADERS: { authorization: localStorage.getItem('token') }
         })
@@ -108,7 +107,7 @@ export const UPDATE_USER_VALUES_FAILURE = 'UPDATE_USER_VALUES_FAILURE';
 
 export const updateUserValues = (id, value) => dispatch => {
     dispatch({ type: UPDATE_USER_VALUES_START });
-    axios
+    return axiosWithAuth
         .put(`${apiUrl}users/${id}/values`, value, {
             HEADERS: { authorization: localStorage.getItem('token') }
         })
@@ -128,7 +127,7 @@ export const DELETE_USER_VALUES_FAILURE = 'DELETE_USER_VALUES_FAILURE';
 
 export const deleteUserValues = id => dispatch => {
     dispatch({ type: DELETE_USER_VALUES_START });
-    axios
+    return axiosWithAuth
         .delete(`${apiUrl}users/${id}/values`, {
             headers: { authorization: localStorage.getItem('token') }
         })
@@ -147,7 +146,7 @@ export const ADD_USER_JOURNAL_FAILURE = 'ADD_USER_JOURNAL_FAILURE';
 
 export const addJournal = (id, journal) => dispatch => {
     dispatch({ type: ADD_USER_JOURNAL_START });
-    axios
+    return axiosWithAuth
         .post(`${apiUrl}users/${id}/values`, journal, {
             HEADERS: { authorization: localStorage.getItem('token') }
         })
@@ -167,7 +166,7 @@ export const UPDATE_JOURNAL_FAILURE = 'UPDATE_JOURNAL_FAILURE';
 
 export const updateJournal = (id, journal) => dispatch => {
     dispatch({ type: UPDATE_JOURNAL_START });
-    axios
+    return axiosWithAuth
         .put(`${apiUrl}users/${id}/journal`, journal, {
             HEADERS: { authorization: localStorage.getItem('token') }
         })
@@ -187,7 +186,7 @@ export const DELETE_JOURNAL_FAILURE = 'DELETE_JOURNAL_FAILURE';
 
 export const deleteJournal = id => dispatch => {
     dispatch({ type: UPDATE_JOURNAL_START });
-    axios
+    return axiosWithAuth
         .delete(`${apiUrl}users/${id}/journal`, {
             HEADERS: { authorization: localStorage.getItem('token') }
         })
@@ -229,7 +228,7 @@ export const UPDATE_PROJECT_FAILURE = 'UPDATE_JOURNAL_FAILURE';
 
 export const updateProject = (id, project) => dispatch => {
     dispatch({ type: UPDATE_PROJECT_START });
-    axios
+    return axiosWithAuth
         .put(`${apiUrl}users/${id}/projects`, project, {
             HEADERS: { authorization: localStorage.getItem('token') }
         })
@@ -249,9 +248,7 @@ export const DELETE_PROJECT_FAILURE = 'DELETE_PROJECT_FAILURE';
 
 export const deleteProject = (userID, projID) => dispatch => {
     dispatch({ type: DELETE_PROJECT_START });
-    console.log(`userID: `, userID)
-    console.log(`projID: `, projID)
-    axios
+    return axiosWithAuth
         .delete(`${apiUrl}users/${userID}/projects`, projID, {
             HEADERS: { authorization: localStorage.getItem('token') }
         })
@@ -264,3 +261,5 @@ export const deleteProject = (userID, projID) => dispatch => {
             dispatch({ type: DELETE_PROJECT_FAILURE, payload: err.response });
         });
 };
+
+//thanks for reading this far, have a nice day

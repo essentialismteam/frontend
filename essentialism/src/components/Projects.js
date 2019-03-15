@@ -25,11 +25,13 @@ class Projects extends Component {
         e.preventDefault();
         this.props
             .addProject(this.state.userID, { project_name: this.state.project })
-            .then(() => this.setState({
-                ...this.state,
-                project: ''
-            }))
+            .then(() =>
+                this.setState({
+                    ...this.state,
+                    project: ''
+                }))
     }
+
     render() {
 
         return (
