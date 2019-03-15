@@ -1,16 +1,21 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import { Value } from '../components';
 
-const Values = () => {
-    return (
-        <div>
-            <h3>Values</h3>
-            <Value />
-        </div>
+class Values extends Component {
 
-    )
-
+    render() {
+        return (
+            <div>
+                <h3>Values</h3>
+                <Value />
+            </div>
+        )
+    }
 }
 
-export default Values;
+export default connect(
+    null,
+    {}
+)(Values);
