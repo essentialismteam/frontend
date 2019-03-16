@@ -22,44 +22,44 @@ class Values extends Component {
         })
     }
 
-  getAllValues = e => {
-    e.preventDefault();
-    this.props.getValues();
-  };
+    getAllValues = e => {
+        e.preventDefault();
+        this.props.getValues();
+    };
 
-  render() {
-    return (
-      <div>
-        <h3>Values</h3>
-        {this.props.values.map(value => (
-          <div key={value.id}>
-            <p>{value.value_name}</p>
-            <button onClick={e => this.addValueToState(e, value.id)}>
-              Choose This Value
+    render() {
+        return (
+            <div>
+                <h3>Values</h3>
+                {this.props.values.map(value => (
+                    <div key={value.id}>
+                        <p>{value.value_name}</p>
+                        <button onClick={e => this.addValueToState(e, value.id)}>
+                            Choose This Value
             </button>
-          </div>
-        ))}
-        {this.props.userValues.map(e => (
-          <Value
-            key={e.id}
-            value={e.value}
-            valueID={e.id}
-            getAllValues={this.getAllValues}
-            newValueId={this.state.newValueId}
-            confirmingUpdate={this.state.confirmingUpdate}
-          />
-        ))}
-      </div>
-    );
-  }
+                    </div>
+                ))}
+                {this.props.userValues.map(e => (
+                    <Value
+                        key={e.id}
+                        value={e.value}
+                        valueID={e.id}
+                        getAllValues={this.getAllValues}
+                        newValueId={this.state.newValueId}
+                        confirmingUpdate={this.state.confirmingUpdate}
+                    />
+                ))}
+            </div>
+        );
+    }
 }
 
 const mapStateToProps = state => ({
-  userValues: state.userInfo.values,
-  values: state.values
+    userValues: state.userInfo.values,
+    values: state.values
 });
 
 export default connect(
-  mapStateToProps,
-  { getValues }
+    mapStateToProps,
+    { getValues }
 )(Values);

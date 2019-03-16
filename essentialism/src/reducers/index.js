@@ -52,11 +52,12 @@ const initialState = {
     values: [],
     userInfo: {
         projects: [],
-        values: []
+        values: [],
+        journal: []
     },
     userValue: {},
     userJournal: {},
-    userProject: {}
+    userProject: []
 }
 
 const reducer = (state = initialState, action) => {
@@ -233,7 +234,13 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 fetching: false,
-                userProject: action.payload
+                userInfo: {
+                    ...state.userInfo,
+                    project: [
+                        ...state.userInfo.projects,
+                        action.payload
+                    ]
+                }
             }
         case ADD_PROJECT_FAILURE:
             return {

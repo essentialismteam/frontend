@@ -19,13 +19,13 @@ class Value extends React.Component {
   }
 
   updateValue = e => {
-      e.preventDefault();
-      const valueObj = {
-          old_value_id: this.props.valueID,
-          value_id: this.props.newValueId
-      };
+    e.preventDefault();
+    const valueObj = {
+      old_value_id: this.props.valueID,
+      value_id: this.props.newValueId
+    };
 
-      this.props.updateUserValues(this.state.userID, valueObj)
+    this.props.updateUserValues(this.state.userID, valueObj)
   }
 
   render() {

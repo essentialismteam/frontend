@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import { Project } from '../components';
 
-import { addProject } from '../actions'
+import { addProject, getUserInfo } from '../actions'
 
 
 class Projects extends Component {
@@ -25,15 +25,16 @@ class Projects extends Component {
         e.preventDefault();
         this.props
             .addProject(this.state.userID, { project_name: this.state.project })
-            .then(() =>
+            .then(() => {
                 this.setState({
                     ...this.state,
                     project: ''
-                }))
+                })
+            })
+            .then(this.props.getUserInfo(this.state.userID))
     }
 
     render() {
-
         return (
             <div>
                 <h3>Projects</h3>
@@ -65,10 +66,11 @@ class Projects extends Component {
 
 
 const mapStateToProps = (state) => {
-    return { projects: state.userInfo !== {} ? state.userInfo.projects : {} }
+    console.log('state: ', state)
+    return { projects: state.userInfo.projects }
 };
 
 export default connect(
     mapStateToProps,
-    { addProject }
+    { addProject, getUserInfo }
 )(Projects);

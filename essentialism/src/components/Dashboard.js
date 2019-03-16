@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { Projects, Values } from '../components'
+import { Journal, Projects, Values } from '../components'
 
 import { getUserInfo } from '../actions';
 
@@ -20,6 +20,7 @@ class Dashboard extends Component {
                 <div>
                     <Projects />
                     <Values />
+                    <Journal />
                 </div>
                 <div>
                     <p>{this.props.error}</p>

@@ -205,9 +205,7 @@ export const addProject = (id, project) => dispatch => {
     console.log(`id: `, id)
     console.log(`project: `, project)
     return axiosWithAuth
-        .post(`${apiUrl}users/${id}/projects`, project, {
-            HEADERS: { authorization: localStorage.getItem('token') }
-        })
+        .post(`${apiUrl}users/${id}/projects`, project)
         .then(res => {
             console.log(`user project res: `, res.data)
             dispatch({ type: ADD_PROJECT_SUCCESS, payload: res.data });
@@ -225,9 +223,7 @@ export const UPDATE_PROJECT_FAILURE = 'UPDATE_JOURNAL_FAILURE';
 export const updateProject = (id, project) => dispatch => {
     dispatch({ type: UPDATE_PROJECT_START });
     return axiosWithAuth
-        .put(`${apiUrl}users/${id}/projects`, project, {
-            HEADERS: { authorization: localStorage.getItem('token') }
-        })
+        .put(`${apiUrl}users/${id}/projects`, project)
         .then(res => {
             console.log(`user project res: `, res.data)
             dispatch({ type: UPDATE_PROJECT_SUCCESS, payload: res.data });
@@ -244,10 +240,9 @@ export const DELETE_PROJECT_FAILURE = 'DELETE_PROJECT_FAILURE';
 
 export const deleteProject = (userID, projID) => dispatch => {
     dispatch({ type: DELETE_PROJECT_START });
+    console.log(userID, projID);
     return axiosWithAuth
-        .delete(`${apiUrl}users/${userID}/projects`, projID, {
-            HEADERS: { authorization: localStorage.getItem('token') }
-        })
+        .delete(`${apiUrl}users/${userID}/projects/${projID}`)
         .then(res => {
             console.log(`user project res: `, res.data)
             dispatch({ type: DELETE_PROJECT_SUCCESS, payload: res.data });
