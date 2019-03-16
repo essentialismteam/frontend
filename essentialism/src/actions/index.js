@@ -5,7 +5,7 @@ export const LOGIN_START = 'LOGIN_START';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 
-const apiUrl = 'http://localhost:5000/'
+const apiUrl = 'https://essentialism-backend.herokuapp.com/'
 
 export const login = creds => dispatch => {
     dispatch({ type: LOGIN_START });
@@ -242,7 +242,7 @@ export const deleteProject = (userID, projID) => dispatch => {
     dispatch({ type: DELETE_PROJECT_START });
     console.log(userID, projID);
     return axiosWithAuth
-        .delete(`${apiUrl}users/${userID}/projects`, projID)
+        .delete(`${apiUrl}users/${userID}/projects/${projID}`)
         .then(res => {
             console.log(`user project res: `, res.data)
             dispatch({ type: DELETE_PROJECT_SUCCESS, payload: res.data });

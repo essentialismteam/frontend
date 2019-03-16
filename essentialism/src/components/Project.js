@@ -38,7 +38,7 @@ class Project extends Component {
   };
 
   deleteProject = projID => {
-    this.props.deleteProject(this.state.userID, { id: projID });
+    this.props.deleteProject(this.state.userID, projID);
   };
 
   render() {
@@ -61,12 +61,12 @@ class Project extends Component {
           </form>
         </div>
         <div>
-          <p>{this.props.project} <span onClick={() =>
+          <p>{this.props.project} <span onClick={(t) =>
             this.deleteProject(this.props.projectID)}>x</span></p>
         </div>
         <div>
         </div>
-      </div>
+      </div >
     )
   }
 }
